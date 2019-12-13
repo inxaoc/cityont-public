@@ -1,0 +1,650 @@
+@prefix : <https://w3id.org/cityont#> .
+@prefix sf: <http://www.opengis.net/ont/sf#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix kvrizy: <https://w3id.org/cityont/kvrizy/071117#> .
+@prefix cityont: <https://w3id.org/cityont#> .
+@base <https://w3id.org/cityont#> .
+
+<https://w3id.org/cityont#> rdf:type owl:Ontology ;
+                             rdfs:label "CityOnt" ;
+                             owl:versionInfo "4.1.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#hasGeometry
+geo:hasGeometry rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#wktLiteral
+geo:wktLiteral rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://w3id.org/cityont#hasContructionParam
+cityont:hasContructionParam rdf:type owl:ObjectProperty ;
+                            rdfs:domain cityont:ConstructionParameterPermission ;
+                            rdfs:range cityont:ConstructionParam ;
+                            rdfs:label "имеет Параметр разрешенного строительства" .
+
+
+###  https://w3id.org/cityont#hasCurrentZoneCode
+cityont:hasCurrentZoneCode rdf:type owl:ObjectProperty ;
+                           rdfs:domain cityont:TerritoryZone ;
+                           rdfs:range cityont:Zone ;
+                           rdfs:label "текущий код зоны" .
+
+
+###  https://w3id.org/cityont#hasEstimatedZoneCode
+cityont:hasEstimatedZoneCode rdf:type owl:ObjectProperty ;
+                             rdfs:domain cityont:TerritoryZone ;
+                             rdfs:range cityont:Zone ;
+                             rdfs:label "расчётный код зоны" .
+
+
+###  https://w3id.org/cityont#hasLandUseType
+cityont:hasLandUseType rdf:type owl:ObjectProperty ;
+                       rdfs:domain cityont:ZoneTypePermission ;
+                       rdfs:range cityont:LandUseType ;
+                       rdfs:label "имеет Вид использования территорий" .
+
+
+###  https://w3id.org/cityont#hasPermit
+cityont:hasPermit rdf:type owl:ObjectProperty ;
+                  rdfs:domain cityont:Zone ;
+                  rdfs:range cityont:Permit ;
+                  rdfs:label "имеет Разрешение" .
+
+
+###  https://w3id.org/cityont#hasPermitType
+cityont:hasPermitType rdf:type owl:ObjectProperty ;
+                      rdfs:domain cityont:ZoneTypePermission ;
+                      rdfs:range cityont:PermissionTypeLandUse ;
+                      rdfs:label "имеет Вид разрешения" .
+
+
+###  https://w3id.org/cityont#hasSpecialCondition
+cityont:hasSpecialCondition rdf:type owl:ObjectProperty ;
+                            rdfs:domain cityont:ZoneTypePermission ;
+                            rdfs:range cityont:Special_Permission_Condition ;
+                            rdfs:label "имеет особое условие разрешения" .
+
+
+###  https://w3id.org/cityont#hasSpecialZoneCondition
+cityont:hasSpecialZoneCondition rdf:type owl:ObjectProperty ;
+                                rdfs:domain cityont:Zone ;
+                                rdfs:range cityont:SpecialZoneCondition ;
+                                rdfs:label "имеет Специальное условие для зоны" .
+
+
+###  https://w3id.org/cityont#hasZoneType
+cityont:hasZoneType rdf:type owl:ObjectProperty ;
+                    rdfs:domain cityont:Zone ;
+                    rdfs:range cityont:ZoneType ;
+                    rdfs:label "имеет Вид зоны" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#asWKT
+geo:asWKT rdf:type owl:DatatypeProperty .
+
+
+###  https://w3id.org/cityont#hasCode
+cityont:hasCode rdf:type owl:DatatypeProperty ;
+                rdfs:range rdfs:Literal ;
+                rdfs:label "имеет код" .
+
+
+###  https://w3id.org/cityont#hasConstructionTypeValue
+cityont:hasConstructionTypeValue rdf:type owl:DatatypeProperty ;
+                                 rdfs:domain cityont:ConstructionParameterPermission ;
+                                 rdfs:range rdfs:Literal ;
+                                 rdfs:label "имеет значение параметра разрешенного строительства" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#Feature
+geo:Feature rdf:type owl:Class .
+
+
+###  http://www.opengis.net/ont/sf#Geometry
+sf:Geometry rdf:type owl:Class .
+
+
+###  https://w3id.org/cityont#AnotherZoneCondition
+cityont:AnotherZoneCondition rdf:type owl:Class ;
+                             rdfs:subClassOf cityont:Special_Permission_Condition ;
+                             rdfs:label "Условие о связи с параметрами другой зоны" .
+
+
+###  https://w3id.org/cityont#ChangingZoneTypeCondition
+cityont:ChangingZoneTypeCondition rdf:type owl:Class ;
+                                  rdfs:subClassOf cityont:Special_Permission_Condition ;
+                                  rdfs:comment "Условие о вспомогательных видах" ;
+                                  rdfs:label "Условие об изменении вида зоны" .
+
+
+###  https://w3id.org/cityont#ConstructionParam
+cityont:ConstructionParam rdf:type owl:Class ;
+                          rdfs:comment "Предельные размеры земельных участков и предельные параметры разрешенного строительства, реконструкции объектов капитального строительства - предельные физические характеристики земельных участков и объектов капитального строительства (зданий и сооружений), которые могут быть размещены на территории земельных участков в соответствии с градостроительным регламентом." ;
+                          rdfs:label "Параметр разрешенного строительства" .
+
+
+###  https://w3id.org/cityont#ConstructionParam_DangerClass
+cityont:ConstructionParam_DangerClass rdf:type owl:Class ;
+                                      rdfs:subClassOf cityont:ConstructionParam ;
+                                      rdfs:comment "(в соответствии с санитарно-эпидемиологическими правилами) объектов капитального строительства, размещаемых на земельных участках" ;
+                                      rdfs:label "Максимальный класс опасности " .
+
+
+###  https://w3id.org/cityont#ConstructionParam_LandUseRatio
+cityont:ConstructionParam_LandUseRatio rdf:type owl:Class ;
+                                       rdfs:subClassOf cityont:ConstructionParam ;
+                                       rdfs:comment "Коэффициент использования территории определяется как отношение максимальной общей площади квартир, которые можно разместить на земельном участке, к площади земельного участка." ;
+                                       rdfs:label "Коэффициент использования территории" .
+
+
+###  https://w3id.org/cityont#ConstructionParam_MaxFloors
+cityont:ConstructionParam_MaxFloors rdf:type owl:Class ;
+                                    rdfs:subClassOf cityont:ConstructionParam ;
+                                    rdfs:comment "максимальное количество этажей надземной части зданий, строений, сооружений на земельных участках" ;
+                                    rdfs:label "Максимальное количество этажей " .
+
+
+###  https://w3id.org/cityont#ConstructionParam_MaxRedLineOffset
+cityont:ConstructionParam_MaxRedLineOffset rdf:type owl:Class ;
+                                           rdfs:subClassOf cityont:ConstructionParam ;
+                                           rdfs:label "Максимальные выступы за красную линию частей зданий, строений и сооружений" .
+
+
+###  https://w3id.org/cityont#ConstructionParam_MaxSize
+cityont:ConstructionParam_MaxSize rdf:type owl:Class ;
+                                  rdfs:subClassOf cityont:ConstructionParam ;
+                                  rdfs:comment """Максимальный размер земельных участков, в том числе их
+площадь, и максимальный процент застройки в границах земельного участка""" ;
+                                  rdfs:label "Максимальный размер земельного участка" .
+
+
+###  https://w3id.org/cityont#ConstructionParam_MaxSpace
+cityont:ConstructionParam_MaxSpace rdf:type owl:Class ;
+                                   rdfs:subClassOf cityont:ConstructionParam ;
+                                   rdfs:comment "Общие требования к минимальным отступам зданий, строений и сооружений от границ земельных участков в целях определения мест допустимого размещения зданий, строений и сооружений, за пределами которых запрещено строительство зданий, строений и сооружений, устанавливаются для участков, расположенных во всех территориальных зонах, кроме жилых зон с кодовым обозначением Т1Ж1, Т1Ж2-1 и Т1Ж2-2, многофункциональной зоны с кодовым обозначением Т3ЖД3 и общественно-деловой подзоны с кодовым обозначением ТД1-1_1, требования к которым установлены в разделе 2 настоящего Приложения в составе градостроительных регламентов для указанных территориальных зон." ;
+                                   rdfs:label "Минимальные отступы зданий, строений и сооружений от границ земельных участков" .
+
+
+###  https://w3id.org/cityont#ConstructionParam_MinBorderIndentMatchesWithRedLines
+cityont:ConstructionParam_MinBorderIndentMatchesWithRedLines rdf:type owl:Class ;
+                                                             rdfs:subClassOf cityont:ConstructionParam ;
+                                                             rdfs:comment "Минимальные отступы от границ земельных участков стен зданий, строений и сооружений по границам земельных участков, совпадающим с внутриквартальными проездами и(или) красными линиями указанных проездов." ;
+                                                             rdfs:label "Минимальные отступы от границ, совпадающими с красными линиями" .
+
+
+###  https://w3id.org/cityont#ConstructionParam_MinQuantityOfSpacesFreightTransport
+cityont:ConstructionParam_MinQuantityOfSpacesFreightTransport rdf:type owl:Class ;
+                                                              rdfs:subClassOf cityont:ConstructionParam ;
+                                                              rdfs:comment "Минимальное количество мест для хранения (технологического отстоя) грузового автотранспорта на земельных участках." ;
+                                                              rdfs:label "Минимальное количество мест для хранения грузового автотранспорта" .
+
+
+###  https://w3id.org/cityont#ConstructionParameterPermission
+cityont:ConstructionParameterPermission rdf:type owl:Class ;
+                                        rdfs:subClassOf cityont:Permit ;
+                                        rdfs:label "Разрешение на Параметры разрешенного строительства" .
+
+
+###  https://w3id.org/cityont#LandSites
+cityont:LandSites rdf:type owl:Class ;
+                  rdfs:subClassOf geo:Feature ;
+                  rdfs:comment "Земельный участок как объект градостроительной деятельности - часть поверхности земли, границы которой описаны и удостоверены в установленном земельном законодательстве порядке, на которой и под которой расположены объекты капитального строительства, в том числе сооружения линейных объектов, зеленые насаждения, иные объекты благоустройства, или которая предназначена для размещения указанных объектов." ;
+                  rdfs:label "Земельные участки" .
+
+
+###  https://w3id.org/cityont#LandUseType
+cityont:LandUseType rdf:type owl:Class ;
+                    rdfs:label "Вид использования территорий" .
+
+
+###  https://w3id.org/cityont#Max_square_condition
+cityont:Max_square_condition rdf:type owl:Class ;
+                             rdfs:subClassOf cityont:Special_Permission_Condition ;
+                             rdfs:label "Условие отношения к основным видам строительства" .
+
+
+###  https://w3id.org/cityont#PermissionTypeLandUse
+cityont:PermissionTypeLandUse rdf:type owl:Class ;
+                              rdfs:comment "Один из трех видов разрешений, относящихся к Видам использования территорий" ;
+                              rdfs:label "Вид разрешения использования территории" .
+
+
+###  https://w3id.org/cityont#Permit
+cityont:Permit rdf:type owl:Class ;
+               rdfs:label "Разрешение" .
+
+
+###  https://w3id.org/cityont#Red_line_condition
+cityont:Red_line_condition rdf:type owl:Class ;
+                           rdfs:subClassOf cityont:Special_Permission_Condition ;
+                           rdfs:label "Условие о красных линиях" .
+
+
+###  https://w3id.org/cityont#SpecialZoneCondition
+cityont:SpecialZoneCondition rdf:type owl:Class ;
+                             rdfs:label "Специальное условие для зоны" .
+
+
+###  https://w3id.org/cityont#Special_Permission_Condition
+cityont:Special_Permission_Condition rdf:type owl:Class ;
+                                     rdfs:label "Особое условие разрешения" .
+
+
+###  https://w3id.org/cityont#TerritoryZone
+cityont:TerritoryZone rdf:type owl:Class ;
+                      rdfs:subClassOf geo:Feature ;
+                      rdfs:comment "Территориальные зоны - зоны, для которых в Правилах землепользования и застройки определены границы и установлены градостроительные регламенты." ;
+                      rdfs:label "Территориальная зона" .
+
+
+###  https://w3id.org/cityont#Zone
+cityont:Zone rdf:type owl:Class ;
+             rdfs:label "Зона ПЗЗ" .
+
+
+###  https://w3id.org/cityont#ZoneType
+cityont:ZoneType rdf:type owl:Class ;
+                 rdfs:label "Вид зоны" .
+
+
+###  https://w3id.org/cityont#ZoneTypePermission
+cityont:ZoneTypePermission rdf:type owl:Class ;
+                           rdfs:subClassOf cityont:Permit ;
+                           rdfs:label "Разрешение на Вид использования территорий" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://w3id.org/cityont#Вспомогательно-разрешенный
+cityont:Вспомогательно-разрешенный rdf:type owl:NamedIndividual ,
+                                            cityont:PermissionTypeLandUse ;
+                                   rdfs:comment "Вспомогательный вид разрешенного использования земельных участков и объектов капитального строительства - вид использования земельных участков и объектов капитального строительства, который может применяться только в качестве дополнительного по отношению к основному или условно разрешенному виду использования и осуществляться совместно с ним на территории одного земельного участка" ;
+                                   rdfs:label "Вспомогательно-разрешенный" .
+
+
+###  https://w3id.org/cityont#Жилая
+cityont:Жилая rdf:type owl:NamedIndividual ,
+                       cityont:ZoneType ;
+              rdfs:comment """Предназначены для застройки многоквартирными жилыми домами, жилыми домами малой и средней этажности, индивидуальными жилыми домами с приусадебными земельными участками.
+В жилых зонах допускается размещение отдельно стоящих, встроенных или пристроенных объектов социально-культурного и культурно-бытового обслуживания населения, культовых зданий, стоянок автомобильного транспорта, промышленных, коммунальных и складских объектов, для которых не требуется установление санитарно-защитных зон и деятельность которых не оказывает вредного воздействие на окружающую среду.
+К жилым зонам также относятся территории садоводческих и дачных кооперативов, если они расположены внутри границ (черты) поселения.
+Источник: https://www.zemvopros.ru/page_4603.htm""" ;
+              rdfs:label "Жилая" .
+
+
+###  https://w3id.org/cityont#Инженерной_и_траснпортной_инфраструктуры
+cityont:Инженерной_и_траснпортной_инфраструктуры rdf:type owl:NamedIndividual ,
+                                                          cityont:ZoneType ;
+                                                 rdfs:comment """Предназначены для размещения и деятельности сооружений и коммуникаций железнодорожного, автомобильного, речного, морского, воздушного и трубопроводного транспорта, связи, а также инженерного оборудования.
+Обязательное условие при размещении объектов инженерной и транспортной инфраструктуры - соблюдение необходимых расстояний от таких объектов до территорий жилых, общественно-деловых и рекреационных зон и других требований для предотвращения вредного воздействия на среду жизнедеятельности.
+Если же объекты инженерной и транспортной инфраструктуры обладают особенностью прямого вредного воздействия на безопасность населения, то они размещаются за пределами городских и сельских поселений.
+Обязанность по благоустройству территорий отвода объектов инженерной и транспортной инфраструктуры и их санитарно-защитных зон возлагается на собственников сооружений и коммуникаций, транспорта, связи и инженерного оборудования.
+Источник: https://www.zemvopros.ru/page_4603.htm""" .
+
+
+###  https://w3id.org/cityont#КИТ_для_земельных_участков_МВЖЗ
+cityont:КИТ_для_земельных_участков_МВЖЗ rdf:type owl:NamedIndividual ,
+                                                 cityont:ConstructionParam_LandUseRatio ;
+                                        rdfs:comment "Коэффицент использования территории для многоэтажной жилой застройки от 9 этажей и выше" .
+
+
+###  https://w3id.org/cityont#КИТ_для_земельных_участков_СЖЗ
+cityont:КИТ_для_земельных_участков_СЖЗ rdf:type owl:NamedIndividual ,
+                                                cityont:ConstructionParam_LandUseRatio ;
+                                       rdfs:comment "Коэффицент использования территории для среднеэтажной жилой застройки до 8 этажей включительно" .
+
+
+###  https://w3id.org/cityont#КоэффицИспТеррит
+cityont:КоэффицИспТеррит rdf:type owl:NamedIndividual ,
+                                  cityont:ConstructionParam_LandUseRatio .
+
+
+###  https://w3id.org/cityont#МВЗКЛ_КП
+cityont:МВЗКЛ_КП rdf:type owl:NamedIndividual ,
+                          cityont:ConstructionParam_MaxRedLineOffset ;
+                 rdfs:comment "Метры" ;
+                 rdfs:label "Максимальные выступы за красную линию частей зданий, строений и сооружений для устройства крылец и приямков" .
+
+
+###  https://w3id.org/cityont#МКМДХГТ_для_Складов
+cityont:МКМДХГТ_для_Складов rdf:type owl:NamedIndividual ,
+                                     cityont:ConstructionParam_MinQuantityOfSpacesFreightTransport ;
+                            rdfs:comment "Для объектов, относящихся к видам разрешенного использования \"склады\" (код 6.9)." .
+
+
+###  https://w3id.org/cityont#МКМДХГТ_для_остальных_ВИТ
+cityont:МКМДХГТ_для_остальных_ВИТ rdf:type owl:NamedIndividual ,
+                                           cityont:ConstructionParam_MinQuantityOfSpacesFreightTransport ;
+                                  rdfs:comment "Для объектов, относящихся к видам разрешенного использования \"рынки\" (код 4.3), \"магазины\" (код 4.4), \"общественное питание\" (код 4.6), \"производственная деятельность\" (код 6.0), \"хранение и переработка сельскохозяйственной продукции\" (код 1.15), \"обеспечение сельскохозяйственного производства\" (код 1.18)." .
+
+
+###  https://w3id.org/cityont#МКМДХГТ_площадь_не_примыкакают_к_проезчасти
+cityont:МКМДХГТ_площадь_не_примыкакают_к_проезчасти rdf:type owl:NamedIndividual ,
+                                                             cityont:ConstructionParam_MinQuantityOfSpacesFreightTransport ;
+                                                    rdfs:comment "Площадь машино-мест для хранения (технологического отстоя) грузового автотранспорта." .
+
+
+###  https://w3id.org/cityont#МКМДХГТ_площадь_примыкакают_к_проезчасти
+cityont:МКМДХГТ_площадь_примыкакают_к_проезчасти rdf:type owl:NamedIndividual ,
+                                                          cityont:ConstructionParam_MinQuantityOfSpacesFreightTransport ;
+                                                 rdfs:comment "Площадь машино-мест для хранения (технологического отстоя) грузового автотранспорта при примыкании участков для стоянки к проезжей части улиц и проездов и продольном расположении автомобилей." .
+
+
+###  https://w3id.org/cityont#МКО
+cityont:МКО rdf:type owl:NamedIndividual ,
+                     cityont:ConstructionParam_DangerClass ;
+            rdfs:label "Максимальный класс опасности " .
+
+
+###  https://w3id.org/cityont#МКЭ
+cityont:МКЭ rdf:type owl:NamedIndividual ,
+                     cityont:ConstructionParam_MaxFloors ;
+            rdfs:label "Максимальное количество этажей " .
+
+
+###  https://w3id.org/cityont#МООГУССКЛ
+cityont:МООГУССКЛ rdf:type owl:NamedIndividual ,
+                           cityont:ConstructionParam_MinBorderIndentMatchesWithRedLines ;
+                  rdfs:label "Минимальные отступы от границ земельных участков красными линиями указанных проездов. " .
+
+
+###  https://w3id.org/cityont#МРЗУ
+cityont:МРЗУ rdf:type owl:NamedIndividual ,
+                      cityont:ConstructionParam_MaxSize ;
+             rdfs:comment """Максимальный размер земельных участков, в том числе их
+площадь, и максимальный процент застройки в границах земельного участка""" ;
+             rdfs:label "Максимальный размер земельного участка" .
+
+
+###  https://w3id.org/cityont#Минимальный_отступ_от_зданий_без_проемов
+cityont:Минимальный_отступ_от_зданий_без_проемов rdf:type owl:NamedIndividual ,
+                                                          cityont:ConstructionParam_MaxSpace ;
+                                                 rdfs:label "Минимальные отступы стен зданий, строений и сооружений без окон, дверных и иных проемов от границ земельных участков" .
+
+
+###  https://w3id.org/cityont#Многофункциональная_ПСИОД
+cityont:Многофункциональная_ПСИОД rdf:type owl:NamedIndividual ,
+                                           cityont:ZoneType ;
+                                  rdfs:comment "Многофункциональные зоны с включением объектов производственного, складского назначения, инженерной инфраструктуры и общественно-деловой застройки" ;
+                                  rdfs:label "Многофункциональная_ПСИОД" .
+
+
+###  https://w3id.org/cityont#Общественно-деловая
+cityont:Общественно-деловая rdf:type owl:NamedIndividual ,
+                                     cityont:ZoneType ;
+                            rdfs:comment """Предназначены для размещения объектов здравоохранения, культуры, торговли, общественного питания, бытового обслуживания, коммерческой деятельности, а также образовательных учреждений (среднего профессионального или высшего профессионального образования), административных, научно-исследовательских учреждений, культовых зданий и иных зданий, строений, сооружений, стоянок автомобильного транспорта, деловых, финансовых и общественных центров.
+В общественно-деловых зонах возможно размещение жилых домов, гостиниц, подземных или многоэтажных гаражей. В генеральных планах, в связи с такими сочетаниями возможностей застройки территорий, могут встретиться обозначения:
+Источник: https://www.zemvopros.ru/page_4603.htm""" .
+
+
+###  https://w3id.org/cityont#Объектов_внешнего_транспорта
+cityont:Объектов_внешнего_транспорта rdf:type owl:NamedIndividual ,
+                                              cityont:ZoneType .
+
+
+###  https://w3id.org/cityont#Производственная
+cityont:Производственная rdf:type owl:NamedIndividual ,
+                                  cityont:ZoneType ;
+                         rdfs:comment """Производственные зоны предназначены для размещения промышленных, коммунальных и складских объектов и объектов инженерной и транспортной инфраструктуры для обеспечения деятельности производственных объектов.
+В производственную зону включается и территория санитарно-защитных зон самих объектов.
+Собственники производственных объектов за счёт собственных средств проводят благоустройство территории производственной зоны.
+В санитарно-защитной зоне промышленных, коммунальных и складских объектов не допускается размещение жилых домов, дошкольных образовательных и образовательных учреждений, а также учреждений здравоохранения, отдыха, физкультурно-оздоровительных и спортивных сооружений, садоводческих, дачных и огороднических кооперативов и производство сельскохозяйственной продукции.
+Источник: https://www.zemvopros.ru/page_4603.htm""" .
+
+
+###  https://w3id.org/cityont#Разрешенный
+cityont:Разрешенный rdf:type owl:NamedIndividual ,
+                             cityont:PermissionTypeLandUse ;
+                    rdfs:comment "Основной вид разрешенного использования земельных участков и объектов капитального строительства - вид использования земельных участков и объектов капитального строительства, применение которого не требует получения специальных разрешений." ;
+                    rdfs:label "Основной разрешенный" .
+
+
+###  https://w3id.org/cityont#Рекреационного_назначения
+cityont:Рекреационного_назначения rdf:type owl:NamedIndividual ,
+                                           cityont:ZoneType ;
+                                  rdfs:comment """Предназначены для организации мест отдыха населения - парки, сады, городские леса, лесопарки, пляжи и иные объекты.
+В рекреационные зоны могут включаться особо охраняемые природные территории и природные объекты.
+На территории рекреационных зон не допускается строительство и расширение действующих промышленных, коммунальных и складских объектов.
+Исключение составляют промышленные, коммунальные и складские объекты, непосредственно связанные с эксплуатацией объектов оздоровительного и рекреационного назначения.
+Источник: https://www.zemvopros.ru/page_4603.htm""" ,
+                                               "Рекреационная" .
+
+
+###  https://w3id.org/cityont#Сельскохозяйственного_использования
+cityont:Сельскохозяйственного_использования rdf:type owl:NamedIndividual ,
+                                                     cityont:ZoneType ;
+                                            rdfs:comment """В пределах границ (черты) городских и сельских поселений выделяются зоны сельскохозяйственного использования - пашни, сады, виноградники, огороды, сенокосы, пастбища, а также занятые сельскохозяйственными зданиями, строениями, сооружениями.
+Территории таких зон могут использоваться для ведения сельского хозяйства до момента изменения вида их использования в соответствии с генеральным планом и правилами застройки.
+Источник: https://www.zemvopros.ru/page_4603.htm""" .
+
+
+###  https://w3id.org/cityont#Специального_назначения
+cityont:Специального_назначения rdf:type owl:NamedIndividual ,
+                                         cityont:ZoneType ;
+                                rdfs:comment """Выделяются для размещения кладбищ, крематориев, свалок бытовых отходов и иных объектов, использование которых несовместимо с использованием других территориальных зон городских и сельских поселений.
+Использование таких зон регламентируется требованиями специальных нормативов.
+Источник: https://www.zemvopros.ru/page_4603.htm""" ;
+                                rdfs:label "Специального назначения" .
+
+
+###  https://w3id.org/cityont#Улично-дорожной_сети_города
+cityont:Улично-дорожной_сети_города rdf:type owl:NamedIndividual ,
+                                             cityont:ZoneType .
+
+
+###  https://w3id.org/cityont#Условие_о_строительстве_рядом_с_красными_линиями
+cityont:Условие_о_строительстве_рядом_с_красными_линиями rdf:type owl:NamedIndividual ,
+                                                                  cityont:Red_line_condition ;
+                                                         rdfs:comment "могут размещаться только на земельных участках, примыкающих к красным линиям и (или) улицам, дорогам, площадям, проездам, набережным, бульварам, за исключением внутриквартальных проездов, при отсутствии норм законодательства, запрещающих их размещение" ;
+                                                         rdfs:label "могут размещаться только на земельных участках, примыкающих к красным линиям" .
+
+
+###  https://w3id.org/cityont#Условно-разрешенный
+cityont:Условно-разрешенный rdf:type owl:NamedIndividual ,
+                                     cityont:PermissionTypeLandUse ;
+                            rdfs:comment "Условно разрешенный вид использования земельных участков и объектов капитального строительства - вид использования земельных участков и объектов капитального строительства, применение которого требует получения специальных разрешений." ;
+                            rdfs:label "Условно-разрешенный" .
+
+
+###  https://w3id.org/cityont#могут_размещаться_при_соблюдении_условий_зоны_Т3ЖД3
+cityont:могут_размещаться_при_соблюдении_условий_зоны_Т3ЖД3 rdf:type owl:NamedIndividual ,
+                                                                     cityont:AnotherZoneCondition ;
+                                                            rdfs:comment "Размещение объектов видов использования допускается при условии соблюдения требований к размещению подобных объектов, которые установлены для них градостроительным регламентом зоны Т3ЖД3." ;
+                                                            rdfs:label "могут размещаться при соблюдении условий зоны Т3ЖД3" .
+
+
+###  https://w3id.org/cityont#относится_к_основным_видам_если_не_более_1500_м_кв
+cityont:относится_к_основным_видам_если_не_более_1500_м_кв rdf:type owl:NamedIndividual ,
+                                                                    cityont:Max_square_condition ;
+                                                           rdfs:comment "относятся к основным видам разрешенного использования при условии, что общая площадь объектов капитального строительства на соответствующих земельных участках не превышает 1500 квадратных метров. В случае если общая площадь объектов капитального строительства на соответствующих земельных участках превышает 1500 квадратных метров, то объекты указанных видов использования относятся к условно разрешенным видам использования." ;
+                                                           rdfs:label "относится к основным видам при площади не более 1500 м*м" .
+
+
+###  https://w3id.org/cityont#относится_к_основным_видам_если_не_более_150_м_кв
+cityont:относится_к_основным_видам_если_не_более_150_м_кв rdf:type owl:NamedIndividual ,
+                                                                   cityont:Max_square_condition ;
+                                                          rdfs:comment "относятся к основным видам разрешенного использования при условии, что общая площадь объектов указанных видов использования на соответствующих земельных участках не превышает 150 квадратных метров. В случае если общая площадь объектов указанных видов использования на соответствующих земельных участках превышает 150 квадратных метров, то вид разрешенного использования относятся к условно разрешенным видам использования" ;
+                                                          rdfs:label "относится к основным видам при площади не более 150 м*м" .
+
+
+###  https://w3id.org/cityont#относится_к_основным_видам_если_не_более_300_м_кв
+cityont:относится_к_основным_видам_если_не_более_300_м_кв rdf:type owl:NamedIndividual ,
+                                                                   cityont:Max_square_condition ;
+                                                          rdfs:comment """относятся к основным видам разрешенного использования при условии, что общая площадь объектов капитального строительства на соответствующих земельных участках не превышает 300
+квадратных метров. В случае если общая площадь объектов капитального строительства на соответствующих земельных участках превышает 300 квадратных метров, то объекты указанных видов использования относятся к условно разрешенным видам использования.""" ;
+                                                          rdfs:label "относится к основным видам при площади не более 300 м*м" .
+
+
+###  https://w3id.org/cityont#относится_к_основным_видам_если_не_более_5000_м_кв
+cityont:относится_к_основным_видам_если_не_более_5000_м_кв rdf:type owl:NamedIndividual ,
+                                                                    cityont:Max_square_condition ;
+                                                           rdfs:comment """относятся к основным видам разрешенного использования при условии, что общая площадь объектов капитального строительства на соответствующих земельных участках не превышает 5000
+квадратных метров. В случае если общая площадь объектов капитального строительства на соответствующих земельных участках превышает 5000 квадратных метров, то объекты указанных видов использования относятся к условно разрешенным видам использования.""" ;
+                                                           rdfs:label "относится к основным видам при площади не более 5000 м*м" .
+
+
+###  https://w3id.org/cityont#спецусловие_для_ТК1
+cityont:спецусловие_для_ТК1 rdf:type owl:NamedIndividual ,
+                                     cityont:SpecialZoneCondition ;
+                            rdfs:comment """К условно разрешенным видам использования относятся основные
+виды разрешенного использования прилегающих территориальных зон допустимые в соответствии с законодательством Российской Федерации о санитарно-эпидемиологическом благополучии населения, экологическими требованиями.""" ;
+                            rdfs:label "Специальное условие для условно-разрешенных ВИТ ТК1" .
+
+
+###  https://w3id.org/cityont#спецусловие_для_ТР0-1
+cityont:спецусловие_для_ТР0-1 rdf:type owl:NamedIndividual ,
+                                       cityont:SpecialZoneCondition ;
+                              rdfs:comment """Основные и условно разрешенные виды использования могут
+использоваться при условии выполнения компенсационного озеленения в соответствии с требованиями законодательства Санкт-Петербурга, если их применение сопровождается сокращением площади зеленых насаждений в границах территориальной зоны ТР0-1 (части территориальной зоны).""" ;
+                              rdfs:label "Cпециальное условие для ВИТ ТР0-1" .
+
+
+###  https://w3id.org/cityont#спецусловие_для_ТР1
+cityont:спецусловие_для_ТР1 rdf:type owl:NamedIndividual ,
+                                     cityont:SpecialZoneCondition ;
+                            rdfs:comment """Основные и условно разрешенные виды использования могут
+использоваться в соответствии с требованиями лесного законодательства.""" ;
+                            rdfs:label "Специальное условие для ВИТ ТР1" .
+
+
+###  https://w3id.org/cityont#спецусловие_для_ТР2
+cityont:спецусловие_для_ТР2 rdf:type owl:NamedIndividual ,
+                                     cityont:SpecialZoneCondition ;
+                            rdfs:comment """Земельные участки условно разрешенных видов использования
+могут быть образованы в границах территориальной зоны ТР2, если
+максимальная доля таких участков, с учетом образованных земельных участков, от площади указанной территориальной зоны не превысит следующих значений:
+при площади до 1 га - 0%;
+при площади от 1 до 5 га - 0,5%;
+при площади от 5 до 20 га - 1%;
+при площади от 20 до 90 га - 3%;
+при площади - более 90 га - 10%.""" ;
+                            rdfs:label "Специальное условие для условно-разрешенных ВИТ ТР2" .
+
+
+###  https://w3id.org/cityont#спецусловие_для_ТР3-1
+cityont:спецусловие_для_ТР3-1 rdf:type owl:NamedIndividual ,
+                                       cityont:SpecialZoneCondition ;
+                              rdfs:comment """Основные и условно разрешенные виды использования могут
+использоваться при условии выполнения компенсационного озеленения в соответствии с требованиями законодательства Санкт-Петербурга, если их применение сопровождается сокращением площади зеленых насаждений в границах территориальной зоны ТР3-2 (части территориальной зоны).""" ;
+                              rdfs:label "Специальное условие для ВИТ ТР3-1" .
+
+
+###  https://w3id.org/cityont#спецусловие_для_ТР4
+cityont:спецусловие_для_ТР4 rdf:type owl:NamedIndividual ,
+                                     cityont:SpecialZoneCondition ;
+                            rdfs:comment """Земельные участки условно разрешенных видов использования
+могут быть образованы в границах территориальной зоны ТР4, если
+максимальная доля таких участков, с учетом образованных земельных участков, от площади указанной территориальной зоны не превысит следующих значений:
+при площади до 20 га - 0%;
+при площади от 20 до 90 га - 3%;
+при площади более 90 га - 5%.""" ;
+                            rdfs:label "Специальное условие для условно-разрешенных ВИТ ТР4" .
+
+
+###  https://w3id.org/cityont#спецусловие_для_ТР5-1
+cityont:спецусловие_для_ТР5-1 rdf:type owl:NamedIndividual ,
+                                       cityont:SpecialZoneCondition ;
+                              rdfs:comment """Земельные участки условно разрешенных видов использования
+могут быть образованы в границах территориальной зоны ТР5-1, если максимальная доля таких земельных участков, с учетом образованных земельных участков, от площади указанной территориальной зоны не превысит следующих значений:
+при площади до 1 га - 0,5%;
+при площади от 1 до 10 га - 1,0%;
+при площади от 10 до 50 га - 3%;
+при площади более 50 га - 5%.
+При определении доли площади территориальной зоны ТР5-1, в границах которой могут быть образованы земельные участки, не учитывается часть территориальной зоны, ширина которой составляет менее 10 метров.""" ;
+                              rdfs:label "Специальное условие для условно-разрешенных ВИТ ТР5-1" .
+
+
+###  https://w3id.org/cityont#спецусловие_для_ТР5-2
+cityont:спецусловие_для_ТР5-2 rdf:type owl:NamedIndividual ,
+                                       cityont:SpecialZoneCondition ;
+                              rdfs:comment """Земельные участки условно разрешенных видов использования
+могут быть образованы в границах территориальной зоны ТР5-2, если максимальная доля таких участков, с учетом образованных земельных участков, от площади указанной территориальной зоны не превысит 50%.
+При определении доли площади территориальной зоны ТР5-2, в границах которой могут быть образованы земельные участки, не учитывается часть территориальной зоны, ширина которой составляет менее 10 метров.""" ;
+                              rdfs:label "Специальное условие для условно-разрешенных ВИТ ТР5-2" .
+
+
+###  https://w3id.org/cityont#условие_1
+cityont:условие_1 rdf:type owl:NamedIndividual ,
+                           cityont:ChangingZoneTypeCondition ;
+                  rdfs:comment """Суммарная доля площади помещений зданий, строений и
+сооружений, занимаемых объектами вспомогательных видов разрешенного использования, расположенных на одном земельном участке, не должна превышать 30% общей площади помещений зданий, строений и сооружений на данном земельном участке, включая подземную часть.""" ;
+                  rdfs:label "Условие о вспомогательных видах 1" .
+
+
+###  https://w3id.org/cityont#условие_2
+cityont:условие_2 rdf:type owl:NamedIndividual ,
+                           cityont:ChangingZoneTypeCondition ;
+                  rdfs:comment """Часть площади земельного участка, занимаемая отдельно
+стоящими объектами вспомогательных видов разрешенного использования, с относящимся к ним озеленением, местами для стоянки (размещения) индивидуального автотранспорта, иными параметрами разрешенного строительства, необходимыми в соответствии с действующим законодательством элементами инженерного обеспечения и благоустройства, не должна превышать 15% общей площади соответствующего земельного участка.""" ;
+                  rdfs:label "Условие о вспомогательных видах 2.1" .
+
+
+###  https://w3id.org/cityont#условие_2.2
+cityont:условие_2.2 rdf:type owl:NamedIndividual ,
+                             cityont:ChangingZoneTypeCondition ;
+                    rdfs:comment """Часть площади земельного участка, занимаемая отдельно
+стоящими объектами, относящихся к виду разрешенного использования \"спорт\" (код 5.1), с относящимся к ним озеленением, местами для стоянки (размещения) индивидуального автотранспорта, иными параметрами разрешенного строительства, необходимыми в соответствии с действующим законодательством элементами инженерного обеспечения и благоустройства
+указанный показатель не должен превышать 10% от общей площади земельного участка.""" ;
+                    rdfs:label "Условие о вспомогательных видах 2.2" .
+
+
+###  https://w3id.org/cityont#условие_3.1
+cityont:условие_3.1 rdf:type owl:NamedIndividual ,
+                             cityont:ChangingZoneTypeCondition ;
+                    rdfs:comment """В границах территориальных зон Т1Ж1, Т1Ж2-1, Т1Ж2-2 для видов
+разрешенного использования \"для индивидуального жилищного
+строительства\" (код 2.1) и \"ведение дачного хозяйства\" (код 13.3)""" ,
+                                 """Суммарная доля площади помещений зданий, строений и
+сооружений, занимаемых объектами вспомогательных видов разрешенного
+использования, расположенных на одном земельном участке, не должна
+превышать 40% общей площади помещений зданий, строений и сооружений на
+данном земельном участке, включая подземную часть.""" ;
+                    rdfs:label "Условие о вспомогательных видах 3.1" .
+
+
+###  https://w3id.org/cityont#условие_3.2
+cityont:условие_3.2 rdf:type owl:NamedIndividual ,
+                             cityont:ChangingZoneTypeCondition ;
+                    rdfs:comment """В границах территориальных зон Т1Ж1, Т1Ж2-1, Т1Ж2-2 для видов
+разрешенного использования \"для индивидуального жилищного
+строительства\" (код 2.1) и \"ведение дачного хозяйства\" (код 13.3)""" ,
+                                 """Часть площади земельного участка, занимаемая объектами
+вспомогательных видов разрешенного использования, не должна превышать
+35% общей площади соответствующего земельного участка, а также
+относящимся к ним озеленением, местами для стоянки (размещения)
+индивидуального автотранспорта, иными необходимыми в соответствии с
+действующим законодательством элементами инженерно-технического
+обеспечения и благоустройства.""" ;
+                    rdfs:label "Условие о вспомогательных видах 3.2" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
