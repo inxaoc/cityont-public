@@ -1,0 +1,1681 @@
+@prefix : <http://www.w3id.org/cityont-core> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix city-data-conceptual: <http://www.w3id.org/cityont-core#> .
+@base <http://www.w3id.org/cityont-core> .
+
+<http://www.w3id.org/cityont-core> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3id.org/cityont-core#param
+city-data-conceptual:param rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.w3id.org/cityont-core#hasApartmentType
+city-data-conceptual:hasApartmentType rdf:type owl:ObjectProperty ;
+                                      rdfs:subPropertyOf city-data-conceptual:hasBuildingSpecificProperties ;
+                                      rdfs:domain city-data-conceptual:MultyAptHouse ,
+                                                  city-data-conceptual:TallMultyApt ,
+                                                  city-data-conceptual:Townhouse ;
+                                      rdfs:range city-data-conceptual:ApartmentType ;
+                                      rdfs:label "имеет тип квартиры" .
+
+
+###  http://www.w3id.org/cityont-core#hasBuidlingSeries
+city-data-conceptual:hasBuidlingSeries rdf:type owl:ObjectProperty ;
+                                       rdfs:subPropertyOf city-data-conceptual:hasBuildingSpecificProperties ;
+                                       rdfs:domain city-data-conceptual:LivingObject ;
+                                       rdfs:range city-data-conceptual:BuidlingSeries ;
+                                       rdfs:label "имеет серию здания" .
+
+
+###  http://www.w3id.org/cityont-core#hasBuildingSpecificProperties
+city-data-conceptual:hasBuildingSpecificProperties rdf:type owl:ObjectProperty ;
+                                                   rdfs:comment "Свойство для группировки свойств, относящихся к определённым парметрам Сооружений. Не все свойства относятся напрямую к Сооружениям, группировка сделана исключительно для целей удобства отображения" ;
+                                                   rdfs:label "имеет свойства сооружения" .
+
+
+###  http://www.w3id.org/cityont-core#hasCoordinates
+city-data-conceptual:hasCoordinates rdf:type owl:ObjectProperty ;
+                                    rdfs:domain city-data-conceptual:PhysicalObject ;
+                                    rdfs:range city-data-conceptual:Geometry ;
+                                    rdfs:comment "Кординаты объекта: геометрия в случае стационарного и местонахождение в случае движимого" ;
+                                    rdfs:label "имеет координаты" .
+
+
+###  http://www.w3id.org/cityont-core#hasFunction
+city-data-conceptual:hasFunction rdf:type owl:ObjectProperty ;
+                                 rdfs:domain city-data-conceptual:PhysicalObject ;
+                                 rdfs:range city-data-conceptual:FunctionalObject ;
+                                 rdfs:comment "Связывает объекты подклассов Физический объект с Объектами подклассов Функциональный объект" ;
+                                 rdfs:label "имеет функцию" .
+
+
+###  http://www.w3id.org/cityont-core#hasLand
+city-data-conceptual:hasLand rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf city-data-conceptual:hasBuildingSpecificProperties ;
+                             rdfs:domain city-data-conceptual:Building ;
+                             rdfs:range city-data-conceptual:Land ;
+                             rdfs:label "расположено на земельном участке" .
+
+
+###  http://www.w3id.org/cityont-core#hasMajorRenovation
+city-data-conceptual:hasMajorRenovation rdf:type owl:ObjectProperty ;
+                                        rdfs:subPropertyOf city-data-conceptual:hasBuildingSpecificProperties ;
+                                        rdfs:domain city-data-conceptual:Building ;
+                                        rdfs:range city-data-conceptual:MajorRenovation ;
+                                        rdfs:label "имеет капительный ремонт" .
+
+
+###  http://www.w3id.org/cityont-core#hasManagingOrganization
+city-data-conceptual:hasManagingOrganization rdf:type owl:ObjectProperty ;
+                                             rdfs:domain city-data-conceptual:PhysicalObject ;
+                                             rdfs:range city-data-conceptual:Organization ;
+                                             rdfs:comment "Связывает объекты класса Физический объект с объектами класса Организация (управляющая данным физическим объектом)" ;
+                                             rdfs:label "имеет управляющую организацию" .
+
+
+###  http://www.w3id.org/cityont-core#hasNestedObject
+city-data-conceptual:hasNestedObject rdf:type owl:ObjectProperty ;
+                                     rdfs:domain city-data-conceptual:PhysicalObject ;
+                                     rdfs:range city-data-conceptual:PhysicalObject ;
+                                     rdfs:comment "Связывает объекты класса Физический объект c объектами класса Физический объект, которые в него входят (например, жилой дом и земельный участок, на котором он расположен)" ;
+                                     rdfs:label "имеет вложенный объект" .
+
+
+###  http://www.w3id.org/cityont-core#hasOwner
+city-data-conceptual:hasOwner rdf:type owl:ObjectProperty ;
+                              rdfs:domain city-data-conceptual:CarVehicle ,
+                                          city-data-conceptual:CommercialOrganization ,
+                                          city-data-conceptual:LivingObject ,
+                                          city-data-conceptual:Motorcycle ,
+                                          city-data-conceptual:TruckVehicle ;
+                              rdfs:range city-data-conceptual:Person ;
+                              rdfs:comment "Связывает ФИзические объекты и Организации с их владельцами-людьми" ;
+                              rdfs:label "имеет собственника" .
+
+
+###  http://www.w3id.org/cityont-core#hasPublicAmenity
+city-data-conceptual:hasPublicAmenity rdf:type owl:ObjectProperty ;
+                                      rdfs:subPropertyOf city-data-conceptual:hasBuildingSpecificProperties ;
+                                      rdfs:domain city-data-conceptual:LivingObject ;
+                                      rdfs:range city-data-conceptual:PublicObject ,
+                                                 city-data-conceptual:SportsObject ;
+                                      rdfs:label "имеет элемент благоустройства" .
+
+
+###  http://www.w3id.org/cityont-core#hasWorkType
+city-data-conceptual:hasWorkType rdf:type owl:ObjectProperty ;
+                                 rdfs:subPropertyOf city-data-conceptual:hasBuildingSpecificProperties ;
+                                 rdfs:domain city-data-conceptual:MajorRenovation ;
+                                 rdfs:range city-data-conceptual:WorkType ;
+                                 rdfs:label "имеет вид работ" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.w3.org/2002/07/owl#topDataProperty
+owl:topDataProperty rdfs:domain city-data-conceptual:Building ;
+                    rdfs:range xsd:int .
+
+
+###  http://www.w3id.org/cityont-core#CentralHotWaterWoods
+city-data-conceptual:CentralHotWaterWoods rdf:type owl:DatatypeProperty ;
+                                          rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                          rdfs:domain city-data-conceptual:LivingObject ;
+                                          rdfs:range xsd:boolean ;
+                                          rdfs:label "имеет горячее водоснабжение от дровяных колонок" .
+
+
+###  http://www.w3id.org/cityont-core#hasAddress
+city-data-conceptual:hasAddress rdf:type owl:DatatypeProperty ;
+                                rdfs:domain city-data-conceptual:Building ;
+                                rdfs:range xsd:string ;
+                                rdfs:label "имеет адрес" .
+
+
+###  http://www.w3id.org/cityont-core#hasAgeGroupPercentage
+city-data-conceptual:hasAgeGroupPercentage rdf:type owl:DatatypeProperty ;
+                                           rdfs:subPropertyOf city-data-conceptual:hasPopulationCharacteristics ;
+                                           rdfs:domain city-data-conceptual:Building ;
+                                           rdfs:range xsd:int ;
+                                           rdfs:label "имеет процент жителей по возрасту" .
+
+
+###  http://www.w3id.org/cityont-core#hasApartmentsAmount
+city-data-conceptual:hasApartmentsAmount rdf:type owl:DatatypeProperty ;
+                                         rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                         rdfs:domain city-data-conceptual:MultyAptHouse ,
+                                                     city-data-conceptual:TallMultyApt ,
+                                                     city-data-conceptual:Townhouse ;
+                                         rdfs:range xsd:int ;
+                                         rdfs:label "имеет количество квартир" .
+
+
+###  http://www.w3id.org/cityont-core#hasArea
+city-data-conceptual:hasArea rdf:type owl:DatatypeProperty ;
+                             rdfs:domain city-data-conceptual:AreaObject ;
+                             rdfs:range xsd:int ;
+                             rdfs:comment "Свойство будет объединять семейство для обозначения разных площадей: общая, жилых помещений, нежилых помещений, помещений, входящих в состав общего имущества" ;
+                             rdfs:label "имеет площадь" .
+
+
+###  http://www.w3id.org/cityont-core#hasAreaGeneral
+city-data-conceptual:hasAreaGeneral rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf city-data-conceptual:hasArea ;
+                                    rdfs:domain city-data-conceptual:AreaObject ;
+                                    rdfs:range xsd:int ;
+                                    rdfs:label "имеет общую площадь" .
+
+
+###  http://www.w3id.org/cityont-core#hasAutoBoilerRoom
+city-data-conceptual:hasAutoBoilerRoom rdf:type owl:DatatypeProperty ;
+                                       rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                       rdfs:domain city-data-conceptual:LivingObject ;
+                                       rdfs:range xsd:boolean ;
+                                       rdfs:label "имеет автономную котельную" .
+
+
+###  http://www.w3id.org/cityont-core#hasBuildingDescription
+city-data-conceptual:hasBuildingDescription rdf:type owl:DatatypeProperty ;
+                                            rdfs:domain city-data-conceptual:Building ;
+                                            rdfs:range xsd:string ;
+                                            rdfs:comment "Текстовое описание зданий, которое генерируется в базе данных" ;
+                                            rdfs:label "имеет описание сооружения" .
+
+
+###  http://www.w3id.org/cityont-core#hasCadastralNumber
+city-data-conceptual:hasCadastralNumber rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain city-data-conceptual:AreaObject ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:label "имеет кадастровый номер" .
+
+
+###  http://www.w3id.org/cityont-core#hasCentralElectricity
+city-data-conceptual:hasCentralElectricity rdf:type owl:DatatypeProperty ;
+                                           rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                           rdfs:domain city-data-conceptual:LivingObject ;
+                                           rdfs:range xsd:boolean ;
+                                           rdfs:label "имеет центральное электроснабжение" .
+
+
+###  http://www.w3id.org/cityont-core#hasCentralGas
+city-data-conceptual:hasCentralGas rdf:type owl:DatatypeProperty ;
+                                   rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                   rdfs:domain city-data-conceptual:LivingObject ;
+                                   rdfs:range xsd:boolean ;
+                                   rdfs:label "имеет центральное газоснабжение" .
+
+
+###  http://www.w3id.org/cityont-core#hasCentralHeating
+city-data-conceptual:hasCentralHeating rdf:type owl:DatatypeProperty ;
+                                       rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                       rdfs:domain city-data-conceptual:LivingObject ;
+                                       rdfs:range xsd:boolean ;
+                                       rdfs:label "имеет центральное отопление" .
+
+
+###  http://www.w3id.org/cityont-core#hasCentralHotWater
+city-data-conceptual:hasCentralHotWater rdf:type owl:DatatypeProperty ;
+                                        rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                        rdfs:domain city-data-conceptual:LivingObject ;
+                                        rdfs:range xsd:boolean ;
+                                        rdfs:label "имеет центральное горячее водоснабжение" .
+
+
+###  http://www.w3id.org/cityont-core#hasCentralHotWaterGas
+city-data-conceptual:hasCentralHotWaterGas rdf:type owl:DatatypeProperty ;
+                                           rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                           rdfs:domain city-data-conceptual:LivingObject ;
+                                           rdfs:range xsd:boolean ;
+                                           rdfs:label "имеет горячее водоснабжение от газовых колонок" .
+
+
+###  http://www.w3id.org/cityont-core#hasCommunalApartmentsAmount
+city-data-conceptual:hasCommunalApartmentsAmount rdf:type owl:DatatypeProperty ;
+                                                 rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                                 rdfs:domain city-data-conceptual:MultyAptHouse ,
+                                                             city-data-conceptual:TallMultyApt ,
+                                                             city-data-conceptual:Townhouse ;
+                                                 rdfs:range xsd:int ;
+                                                 rdfs:label "имеет количество коммунальных квартир" .
+
+
+###  http://www.w3id.org/cityont-core#hasCommunalFacilitiesArea
+city-data-conceptual:hasCommunalFacilitiesArea rdf:type owl:DatatypeProperty ;
+                                               rdfs:subPropertyOf city-data-conceptual:hasArea ;
+                                               rdfs:domain city-data-conceptual:LivingObject ;
+                                               rdfs:range xsd:int ;
+                                               rdfs:label "имеет площадь помещений, входящих в состав общего имущества" .
+
+
+###  http://www.w3id.org/cityont-core#hasDomofonAmount
+city-data-conceptual:hasDomofonAmount rdf:type owl:DatatypeProperty ;
+                                      rdfs:label "имеет количество переговорно-замочных устройств" .
+
+
+###  http://www.w3id.org/cityont-core#hasFailureStatus
+city-data-conceptual:hasFailureStatus rdf:type owl:DatatypeProperty ;
+                                      rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                      rdfs:domain city-data-conceptual:LivingObject ;
+                                      rdfs:range xsd:boolean ;
+                                      rdfs:label "является аварийным" .
+
+
+###  http://www.w3id.org/cityont-core#hasFloors
+city-data-conceptual:hasFloors rdf:type owl:DatatypeProperty ;
+                               rdfs:domain city-data-conceptual:Building ;
+                               rdfs:range xsd:int ;
+                               rdfs:label "имеет количество этажей" .
+
+
+###  http://www.w3id.org/cityont-core#hasGarbageAmount
+city-data-conceptual:hasGarbageAmount rdf:type owl:DatatypeProperty ;
+                                      rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                      rdfs:domain city-data-conceptual:MultyAptHouse ,
+                                                  city-data-conceptual:TallMultyApt ,
+                                                  city-data-conceptual:Townhouse ;
+                                      rdfs:range xsd:int ;
+                                      rdfs:label "имеет количество мусоропроводов" .
+
+
+###  http://www.w3id.org/cityont-core#hasHeight
+city-data-conceptual:hasHeight rdf:type owl:DatatypeProperty ;
+                               rdfs:domain city-data-conceptual:Building ;
+                               rdfs:range xsd:int ;
+                               rdfs:label "имеет высоту" .
+
+
+###  http://www.w3id.org/cityont-core#hasHousingCharacteristics
+city-data-conceptual:hasHousingCharacteristics rdf:type owl:DatatypeProperty ;
+                                               rdfs:comment "Семейство характеристик жилых объектов" ;
+                                               rdfs:label "имеет жилищные условия" .
+
+
+###  http://www.w3id.org/cityont-core#hasIllumination
+city-data-conceptual:hasIllumination rdf:type owl:DatatypeProperty ;
+                                     rdfs:domain city-data-conceptual:AreaObject ,
+                                                 city-data-conceptual:RoadNetworkObject ,
+                                                 city-data-conceptual:Tree ;
+                                     rdfs:range xsd:boolean ;
+                                     rdfs:label "имеет освещение" .
+
+
+###  http://www.w3id.org/cityont-core#hasInhabitableArea
+city-data-conceptual:hasInhabitableArea rdf:type owl:DatatypeProperty ;
+                                        rdfs:subPropertyOf city-data-conceptual:hasArea ;
+                                        rdfs:domain city-data-conceptual:LivingObject ;
+                                        rdfs:range xsd:int ;
+                                        rdfs:label "имеет площадь жилых помещений" .
+
+
+###  http://www.w3id.org/cityont-core#hasLayerDescription
+city-data-conceptual:hasLayerDescription rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain city-data-conceptual:Layer ;
+                                         rdfs:range xsd:anyURI ;
+                                         rdfs:comment "Описание слоя, созданного пользователем" ;
+                                         rdfs:label "имеет описание слоя" .
+
+
+###  http://www.w3id.org/cityont-core#hasLicensePlate
+city-data-conceptual:hasLicensePlate rdf:type owl:DatatypeProperty ;
+                                     rdfs:domain city-data-conceptual:MovableObject ;
+                                     rdfs:range xsd:string ;
+                                     rdfs:label "имеет номер зарегистрированный" .
+
+
+###  http://www.w3id.org/cityont-core#hasLiftAmount
+city-data-conceptual:hasLiftAmount rdf:type owl:DatatypeProperty ;
+                                   rdfs:subPropertyOf owl:topDataProperty ;
+                                   rdfs:domain city-data-conceptual:Building ;
+                                   rdfs:range xsd:int ;
+                                   rdfs:label "имеет количество лифтов" .
+
+
+###  http://www.w3id.org/cityont-core#hasMaxFloors
+city-data-conceptual:hasMaxFloors rdf:type owl:DatatypeProperty ;
+                                  rdfs:subPropertyOf city-data-conceptual:hasFloors ;
+                                  rdfs:label "имеет максимальное количество этажей" .
+
+
+###  http://www.w3id.org/cityont-core#hasMinFloors
+city-data-conceptual:hasMinFloors rdf:type owl:DatatypeProperty ;
+                                  rdfs:subPropertyOf city-data-conceptual:hasFloors ;
+                                  rdfs:label "имеет минимальное количество этажей" .
+
+
+###  http://www.w3id.org/cityont-core#hasModelName
+city-data-conceptual:hasModelName rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain city-data-conceptual:MovableObject ;
+                                  rdfs:range xsd:string ;
+                                  rdfs:label "имеет модель и марку" .
+
+
+###  http://www.w3id.org/cityont-core#hasNotCentralGas
+city-data-conceptual:hasNotCentralGas rdf:type owl:DatatypeProperty ;
+                                      rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                      rdfs:domain city-data-conceptual:LivingObject ;
+                                      rdfs:range xsd:boolean ;
+                                      rdfs:label "имеет не центральное газоснабжение" .
+
+
+###  http://www.w3id.org/cityont-core#hasParkingArea
+city-data-conceptual:hasParkingArea rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf city-data-conceptual:hasArea ;
+                                    rdfs:domain city-data-conceptual:Land ;
+                                    rdfs:range xsd:int ;
+                                    rdfs:comment "Площадь парковки в границах земельного участка" ;
+                                    rdfs:label "имеет площадь парковки" .
+
+
+###  http://www.w3id.org/cityont-core#hasPopulationCharacteristics
+city-data-conceptual:hasPopulationCharacteristics rdf:type owl:DatatypeProperty ;
+                                                  rdfs:label "имеет характеристики жителей" .
+
+
+###  http://www.w3id.org/cityont-core#hasResidentNumber
+city-data-conceptual:hasResidentNumber rdf:type owl:DatatypeProperty ;
+                                       rdfs:subPropertyOf city-data-conceptual:hasPopulationCharacteristics ;
+                                       rdfs:domain city-data-conceptual:LivingObject ;
+                                       rdfs:range xsd:int ;
+                                       rdfs:label "имеет количество проживающих" .
+
+
+###  http://www.w3id.org/cityont-core#hasSocialGroupPercentage
+city-data-conceptual:hasSocialGroupPercentage rdf:type owl:DatatypeProperty ;
+                                              rdfs:subPropertyOf city-data-conceptual:hasPopulationCharacteristics ;
+                                              rdfs:domain city-data-conceptual:Building ;
+                                              rdfs:range xsd:int ;
+                                              rdfs:label "имеет процент жителей по социальной группе" .
+
+
+###  http://www.w3id.org/cityont-core#hasStairsAmount
+city-data-conceptual:hasStairsAmount rdf:type owl:DatatypeProperty ;
+                                     rdfs:domain city-data-conceptual:Building ;
+                                     rdfs:range xsd:int ;
+                                     rdfs:label "имеет количество лестниц" .
+
+
+###  http://www.w3id.org/cityont-core#hasStoveHeating
+city-data-conceptual:hasStoveHeating rdf:type owl:DatatypeProperty ;
+                                     rdfs:subPropertyOf city-data-conceptual:hasHousingCharacteristics ;
+                                     rdfs:domain city-data-conceptual:LivingObject ;
+                                     rdfs:range xsd:boolean ;
+                                     rdfs:label "имеет печное отопление" .
+
+
+###  http://www.w3id.org/cityont-core#hasStudentsCapacity
+city-data-conceptual:hasStudentsCapacity rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain city-data-conceptual:EducationalObject ;
+                                         rdfs:range xsd:int ;
+                                         rdfs:label "рассчитан на количество обучающихся" .
+
+
+###  http://www.w3id.org/cityont-core#hasUninhabitableArea
+city-data-conceptual:hasUninhabitableArea rdf:type owl:DatatypeProperty ;
+                                          rdfs:subPropertyOf city-data-conceptual:hasArea ;
+                                          rdfs:domain city-data-conceptual:LivingObject ;
+                                          rdfs:range xsd:int ;
+                                          rdfs:label "имеет площадь нежилых помещений" .
+
+
+###  http://www.w3id.org/cityont-core#hasVIN
+city-data-conceptual:hasVIN rdf:type owl:DatatypeProperty ;
+                            rdfs:domain city-data-conceptual:CarVehicle ,
+                                        city-data-conceptual:Motorcycle ,
+                                        city-data-conceptual:TruckVehicle ;
+                            rdfs:range xsd:string ;
+                            rdfs:label "имеет VIN" .
+
+
+###  http://www.w3id.org/cityont-core#hasYearConstruct
+city-data-conceptual:hasYearConstruct rdf:type owl:DatatypeProperty ;
+                                      rdfs:domain city-data-conceptual:Building ;
+                                      rdfs:range xsd:dateTime ;
+                                      rdfs:label "имеет год постройки" .
+
+
+###  http://www.w3id.org/cityont-core#hasYearProduction
+city-data-conceptual:hasYearProduction rdf:type owl:DatatypeProperty ;
+                                       rdfs:domain city-data-conceptual:MovableObject ;
+                                       rdfs:range xsd:dateTime ;
+                                       rdfs:label "имеет год производства" .
+
+
+###  http://www.w3id.org/cityont-core#hasYearRepair
+city-data-conceptual:hasYearRepair rdf:type owl:DatatypeProperty ;
+                                   rdfs:domain city-data-conceptual:Building ;
+                                   rdfs:range xsd:dateTime ;
+                                   rdfs:label "имеет год восстановления" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3id.org/cityont-core#AchitectureElement
+city-data-conceptual:AchitectureElement rdf:type owl:Class ;
+                                        rdfs:subClassOf city-data-conceptual:PointObject ;
+                                        rdfs:label "Элемент благоустройства" .
+
+
+###  http://www.w3id.org/cityont-core#AdministrativeUnit
+city-data-conceptual:AdministrativeUnit rdf:type owl:Class ;
+                                        rdfs:subClassOf city-data-conceptual:Space ;
+                                        rdfs:label "Административно-территориальная единица" .
+
+
+###  http://www.w3id.org/cityont-core#Agent
+city-data-conceptual:Agent rdf:type owl:Class ;
+                           rdfs:comment "Этот класс характеризует сущности, способные выполнять какие либо действия с иными сущностями. Могут иметь правоотношения как между собой, так и с другими сущностями. Например, человек может владеть недвижимостью. Организация может управлять территорией." ;
+                           rdfs:isDefinedBy "http://xmlns.com/foaf/spec/#term_Agent" ;
+                           rdfs:label "Agent"@en ,
+                                      "Агент"@ru ;
+                           city-data-conceptual:param "name" .
+
+
+###  http://www.w3id.org/cityont-core#Apartment
+city-data-conceptual:Apartment rdf:type owl:Class ;
+                               rdfs:subClassOf city-data-conceptual:LivingObject ;
+                               rdfs:label "Квартира" .
+
+
+###  http://www.w3id.org/cityont-core#ApartmentType
+city-data-conceptual:ApartmentType rdf:type owl:Class ;
+                                   rdfs:subClassOf city-data-conceptual:Reference ;
+                                   rdfs:comment "Перечисление типов квартир по количеству комнат" ;
+                                   rdfs:label "Тип квартиры" .
+
+
+###  http://www.w3id.org/cityont-core#AreaObject
+city-data-conceptual:AreaObject rdf:type owl:Class ;
+                                rdfs:subClassOf city-data-conceptual:PhysicalObject ;
+                                rdfs:comment "Объект, обозначаемый площадью на карте (например, здание или парк)." ;
+                                rdfs:label "Площадной объект" .
+
+
+###  http://www.w3id.org/cityont-core#AutonomousOrganization
+city-data-conceptual:AutonomousOrganization rdf:type owl:Class ;
+                                            rdfs:subClassOf city-data-conceptual:NonProfitOrganization ;
+                                            rdfs:label "АНО" .
+
+
+###  http://www.w3id.org/cityont-core#Bar
+city-data-conceptual:Bar rdf:type owl:Class ;
+                         rdfs:subClassOf city-data-conceptual:Eatery ;
+                         rdfs:label "Бар" .
+
+
+###  http://www.w3id.org/cityont-core#Block
+city-data-conceptual:Block rdf:type owl:Class ;
+                           rdfs:subClassOf city-data-conceptual:Territory ;
+                           rdfs:label "Квартал" .
+
+
+###  http://www.w3id.org/cityont-core#Bowling
+city-data-conceptual:Bowling rdf:type owl:Class ;
+                             rdfs:subClassOf city-data-conceptual:CulturalObject ;
+                             rdfs:label "Боулинг" .
+
+
+###  http://www.w3id.org/cityont-core#BuidlingSeries
+city-data-conceptual:BuidlingSeries rdf:type owl:Class ;
+                                    rdfs:subClassOf city-data-conceptual:Reference ;
+                                    rdfs:comment "Перечисление серий жилых домов" ;
+                                    rdfs:label "Серия здания" .
+
+
+###  http://www.w3id.org/cityont-core#Building
+city-data-conceptual:Building rdf:type owl:Class ;
+                              rdfs:subClassOf city-data-conceptual:AreaObject ;
+                              rdfs:comment "Площадной объект, представляющий собой постройку" ;
+                              rdfs:label "Сооружение" .
+
+
+###  http://www.w3id.org/cityont-core#Bus
+city-data-conceptual:Bus rdf:type owl:Class ;
+                         rdfs:subClassOf city-data-conceptual:MovableObject ;
+                         rdfs:label "Автобус" .
+
+
+###  http://www.w3id.org/cityont-core#BusinessCentre
+city-data-conceptual:BusinessCentre rdf:type owl:Class ;
+                                    rdfs:subClassOf city-data-conceptual:BusinessHub ;
+                                    rdfs:label "Бизнес-центр" .
+
+
+###  http://www.w3id.org/cityont-core#BusinessHub
+city-data-conceptual:BusinessHub rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:CommercialObject ;
+                                 rdfs:label "Деловой центр" .
+
+
+###  http://www.w3id.org/cityont-core#CadastralParcel
+city-data-conceptual:CadastralParcel rdf:type owl:Class ;
+                                     rdfs:subClassOf city-data-conceptual:Land ;
+                                     rdfs:label "Кадастровый участок" .
+
+
+###  http://www.w3id.org/cityont-core#Cafe
+city-data-conceptual:Cafe rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:Eatery ;
+                          rdfs:label "Кафе" .
+
+
+###  http://www.w3id.org/cityont-core#CapitalConstruction
+city-data-conceptual:CapitalConstruction rdf:type owl:Class ;
+                                         rdfs:subClassOf city-data-conceptual:Building ;
+                                         rdfs:label "Объект капитального строительства" .
+
+
+###  http://www.w3id.org/cityont-core#CarVehicle
+city-data-conceptual:CarVehicle rdf:type owl:Class ;
+                                rdfs:subClassOf city-data-conceptual:MovableObject ;
+                                rdfs:label "Легковой автомобиль" .
+
+
+###  http://www.w3id.org/cityont-core#Cemetery
+city-data-conceptual:Cemetery rdf:type owl:Class ;
+                              rdfs:subClassOf city-data-conceptual:PublicObject ;
+                              rdfs:label "Кладбище" .
+
+
+###  http://www.w3id.org/cityont-core#CentralBank
+city-data-conceptual:CentralBank rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:GovernmentAuthority ;
+                                 rdfs:label "Центральный банк" .
+
+
+###  http://www.w3id.org/cityont-core#CharityFoundation
+city-data-conceptual:CharityFoundation rdf:type owl:Class ;
+                                       rdfs:subClassOf city-data-conceptual:NonProfitOrganization .
+
+
+###  http://www.w3id.org/cityont-core#Cinema
+city-data-conceptual:Cinema rdf:type owl:Class ;
+                            rdfs:subClassOf city-data-conceptual:CulturalObject ;
+                            rdfs:label "Кинотеатр" .
+
+
+###  http://www.w3id.org/cityont-core#City
+city-data-conceptual:City rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:AdministrativeUnit ;
+                          rdfs:label "Город" .
+
+
+###  http://www.w3id.org/cityont-core#CityDistrict
+city-data-conceptual:CityDistrict rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:AdministrativeUnit ;
+                                  rdfs:label "Район (города)" .
+
+
+###  http://www.w3id.org/cityont-core#Club
+city-data-conceptual:Club rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:CulturalObject ;
+                          rdfs:label "Клуб" .
+
+
+###  http://www.w3id.org/cityont-core#CommercialObject
+city-data-conceptual:CommercialObject rdf:type owl:Class ;
+                                      rdfs:subClassOf city-data-conceptual:SocialObject ;
+                                      rdfs:label "Коммерческий объект" .
+
+
+###  http://www.w3id.org/cityont-core#CommercialOrganization
+city-data-conceptual:CommercialOrganization rdf:type owl:Class ;
+                                            rdfs:subClassOf city-data-conceptual:Organization ;
+                                            rdfs:label "Коммерческая организация" .
+
+
+###  http://www.w3id.org/cityont-core#ConcertHall
+city-data-conceptual:ConcertHall rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:CulturalObject ;
+                                 rdfs:label "Концертный зал" .
+
+
+###  http://www.w3id.org/cityont-core#CornerStore
+city-data-conceptual:CornerStore rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:MultifunctionalStore ;
+                                 rdfs:label "Магазин у дома" .
+
+
+###  http://www.w3id.org/cityont-core#CreativeClass
+city-data-conceptual:CreativeClass rdf:type owl:Class ;
+                                   rdfs:subClassOf city-data-conceptual:EducationalObject ;
+                                   rdfs:label "Творческий кружок" .
+
+
+###  http://www.w3id.org/cityont-core#Crosswalk
+city-data-conceptual:Crosswalk rdf:type owl:Class ;
+                               rdfs:subClassOf city-data-conceptual:PublicTransportationObject ;
+                               rdfs:label "Пешеходный переход" .
+
+
+###  http://www.w3id.org/cityont-core#CulturalObject
+city-data-conceptual:CulturalObject rdf:type owl:Class ;
+                                    rdfs:subClassOf city-data-conceptual:SocialObject ;
+                                    rdfs:label "Культурный объект" .
+
+
+###  http://www.w3id.org/cityont-core#DisabledPopulation
+city-data-conceptual:DisabledPopulation rdf:type owl:Class ;
+                                        rdfs:subClassOf city-data-conceptual:SocialGroup ;
+                                        rdfs:label "Население с ограниченными возможностями" .
+
+
+###  http://www.w3id.org/cityont-core#Eatery
+city-data-conceptual:Eatery rdf:type owl:Class ;
+                            rdfs:subClassOf city-data-conceptual:CommercialObject ;
+                            rdfs:label "Общепит" .
+
+
+###  http://www.w3id.org/cityont-core#EducationalObject
+city-data-conceptual:EducationalObject rdf:type owl:Class ;
+                                       rdfs:subClassOf city-data-conceptual:SocialObject ;
+                                       rdfs:label "Образовательный объект" .
+
+
+###  http://www.w3id.org/cityont-core#EnergeticObject
+city-data-conceptual:EnergeticObject rdf:type owl:Class ;
+                                     rdfs:subClassOf city-data-conceptual:IndustrialObject ;
+                                     rdfs:label "Энергетический объект" ;
+                                     city-data-conceptual:param "выброс CO2" .
+
+
+###  http://www.w3id.org/cityont-core#FederalAgency
+city-data-conceptual:FederalAgency rdf:type owl:Class ;
+                                   rdfs:subClassOf city-data-conceptual:FederalGov ;
+                                   rdfs:label "Федеральное агенство" .
+
+
+###  http://www.w3id.org/cityont-core#FederalCity
+city-data-conceptual:FederalCity rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:City ;
+                                 rdfs:label "Город федерального значения" .
+
+
+###  http://www.w3id.org/cityont-core#FederalGov
+city-data-conceptual:FederalGov rdf:type owl:Class ;
+                                rdfs:subClassOf city-data-conceptual:GovernmentBody ;
+                                rdfs:label "Федеральный орга власти" .
+
+
+###  http://www.w3id.org/cityont-core#FederalGovernment
+city-data-conceptual:FederalGovernment rdf:type owl:Class ;
+                                       rdfs:subClassOf city-data-conceptual:FederalGov ;
+                                       rdfs:label "Правительство РФ" .
+
+
+###  http://www.w3id.org/cityont-core#FederalMinistry
+city-data-conceptual:FederalMinistry rdf:type owl:Class ;
+                                     rdfs:subClassOf city-data-conceptual:FederalGov ;
+                                     rdfs:label "Федеральное министерство" .
+
+
+###  http://www.w3id.org/cityont-core#FunctionalObject
+city-data-conceptual:FunctionalObject rdf:type owl:Class ;
+                                      rdfs:comment "Описание функций физического объекта" ;
+                                      rdfs:label "Функциональный объект" .
+
+
+###  http://www.w3id.org/cityont-core#GTFS
+city-data-conceptual:GTFS rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:PublicTransportationObject .
+
+
+###  http://www.w3id.org/cityont-core#Garage
+city-data-conceptual:Garage rdf:type owl:Class ;
+                            rdfs:subClassOf city-data-conceptual:Building ;
+                            rdfs:label "Гараж" .
+
+
+###  http://www.w3id.org/cityont-core#Geometry
+city-data-conceptual:Geometry rdf:type owl:Class ;
+                              rdfs:label "Геометрия" .
+
+
+###  http://www.w3id.org/cityont-core#GiftShop
+city-data-conceptual:GiftShop rdf:type owl:Class ;
+                              rdfs:subClassOf city-data-conceptual:RetailStore ;
+                              rdfs:label "Магазин подарков" .
+
+
+###  http://www.w3id.org/cityont-core#GovCorporation
+city-data-conceptual:GovCorporation rdf:type owl:Class ;
+                                    rdfs:subClassOf city-data-conceptual:GovernmentAuthority ;
+                                    rdfs:label "Госкорпорация" .
+
+
+###  http://www.w3id.org/cityont-core#GovernmentAuthority
+city-data-conceptual:GovernmentAuthority rdf:type owl:Class ;
+                                         rdfs:subClassOf city-data-conceptual:Organization ;
+                                         rdfs:label "Государственная организация" .
+
+
+###  http://www.w3id.org/cityont-core#GovernmentBody
+city-data-conceptual:GovernmentBody rdf:type owl:Class ;
+                                    rdfs:subClassOf city-data-conceptual:GovernmentAuthority ;
+                                    rdfs:label "Орган власти" .
+
+
+###  http://www.w3id.org/cityont-core#GreenObject
+city-data-conceptual:GreenObject rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:NatureObject ;
+                                 rdfs:label "Зелёный объект" .
+
+
+###  http://www.w3id.org/cityont-core#Group
+city-data-conceptual:Group rdf:type owl:Class ;
+                           rdfs:subClassOf city-data-conceptual:Agent ;
+                           rdfs:comment "Этот класс представляет собой объединение Агентов" ;
+                           rdfs:isDefinedBy "http://xmlns.com/foaf/spec/#term_Group" ;
+                           rdfs:label "Group"@en ,
+                                      "Группа"@ru .
+
+
+###  http://www.w3id.org/cityont-core#HelthFacility
+city-data-conceptual:HelthFacility rdf:type owl:Class ;
+                                   rdfs:subClassOf city-data-conceptual:MedicalObject ;
+                                   rdfs:label "Медицинское учреждение" .
+
+
+###  http://www.w3id.org/cityont-core#Hospital
+city-data-conceptual:Hospital rdf:type owl:Class ;
+                              rdfs:subClassOf city-data-conceptual:HelthFacility ;
+                              rdfs:label "Больница" .
+
+
+###  http://www.w3id.org/cityont-core#House
+city-data-conceptual:House rdf:type owl:Class ;
+                           rdfs:subClassOf city-data-conceptual:LivingObject ;
+                           rdfs:label "Частный дом" .
+
+
+###  http://www.w3id.org/cityont-core#Hypermarket
+city-data-conceptual:Hypermarket rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:MultifunctionalStore ;
+                                 rdfs:label "Гипермаркет" .
+
+
+###  http://www.w3id.org/cityont-core#IndustrialObject
+city-data-conceptual:IndustrialObject rdf:type owl:Class ;
+                                      rdfs:subClassOf city-data-conceptual:FunctionalObject ;
+                                      rdfs:label "Промышленный объект" .
+
+
+###  http://www.w3id.org/cityont-core#KU_state
+city-data-conceptual:KU_state rdf:type owl:Class ;
+                              rdfs:subClassOf city-data-conceptual:GovernmentAuthority ;
+                              rdfs:label "Казенное учреждение" .
+
+
+###  http://www.w3id.org/cityont-core#Land
+city-data-conceptual:Land rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:Space ;
+                          rdfs:label "Земельный участок" .
+
+
+###  http://www.w3id.org/cityont-core#Layer
+city-data-conceptual:Layer rdf:type owl:Class ;
+                           rdfs:subClassOf city-data-conceptual:Service ;
+                           rdfs:comment "Для хранения слоёв, созданных пользователем" ;
+                           rdfs:label "Пользовательский слой" .
+
+
+###  http://www.w3id.org/cityont-core#Library
+city-data-conceptual:Library rdf:type owl:Class ;
+                             rdfs:subClassOf city-data-conceptual:EducationalObject ;
+                             rdfs:label "Библиотека" .
+
+
+###  http://www.w3id.org/cityont-core#LivingObject
+city-data-conceptual:LivingObject rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:FunctionalObject ;
+                                  rdfs:label "Жилой объект" .
+
+
+###  http://www.w3id.org/cityont-core#MajorRenovation
+city-data-conceptual:MajorRenovation rdf:type owl:Class ;
+                                     rdfs:subClassOf city-data-conceptual:Reference ;
+                                     rdfs:comment "Список капитальных ремонтов. Класс в будущем будет выведен в другую ветвь иерархии" ;
+                                     rdfs:label "Капитальный ремонт" .
+
+
+###  http://www.w3id.org/cityont-core#MedicalObject
+city-data-conceptual:MedicalObject rdf:type owl:Class ;
+                                   rdfs:subClassOf city-data-conceptual:SocialObject ;
+                                   rdfs:label "Медицинский объект" .
+
+
+###  http://www.w3id.org/cityont-core#Memorial
+city-data-conceptual:Memorial rdf:type owl:Class ;
+                              rdfs:subClassOf city-data-conceptual:CulturalObject ;
+                              rdfs:label "Памятник" .
+
+
+###  http://www.w3id.org/cityont-core#MetroEntranceHall
+city-data-conceptual:MetroEntranceHall rdf:type owl:Class ;
+                                       rdfs:subClassOf city-data-conceptual:PublicTransportationObject ;
+                                       rdfs:label "Наземный вестибюль станции метро" .
+
+
+###  http://www.w3id.org/cityont-core#Motorcycle
+city-data-conceptual:Motorcycle rdf:type owl:Class ;
+                                rdfs:subClassOf city-data-conceptual:MovableObject ;
+                                rdfs:label "Мотоцикл" .
+
+
+###  http://www.w3id.org/cityont-core#MovableObject
+city-data-conceptual:MovableObject rdf:type owl:Class ;
+                                   rdfs:subClassOf city-data-conceptual:PhysicalObject ;
+                                   rdfs:comment "Объект, который не имеет фиксированного местоположения/прикрепления к земле (например, транспорт или движимая уличная техника). Имеет обязательные аттрибуты: modelName и licencePlate (исключением могут быть трактора и иная техника, используемая в поселках, оставлять пустую строку)." ;
+                                   rdfs:label "Движимый объект" .
+
+
+###  http://www.w3id.org/cityont-core#MultifunctionalStore
+city-data-conceptual:MultifunctionalStore rdf:type owl:Class ;
+                                          rdfs:subClassOf city-data-conceptual:RetailStore ;
+                                          rdfs:label "Универсальное предприятие торговли" .
+
+
+###  http://www.w3id.org/cityont-core#MultyAptHouse
+city-data-conceptual:MultyAptHouse rdf:type owl:Class ;
+                                   rdfs:subClassOf city-data-conceptual:LivingObject ;
+                                   rdfs:label "Многоквартирный дом" .
+
+
+###  http://www.w3id.org/cityont-core#MunAdministration
+city-data-conceptual:MunAdministration rdf:type owl:Class ;
+                                       rdfs:subClassOf city-data-conceptual:MunicipalGov ;
+                                       rdfs:label "Муниципальная администрация" .
+
+
+###  http://www.w3id.org/cityont-core#MunDepSovet
+city-data-conceptual:MunDepSovet rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:MunicipalGov ;
+                                 rdfs:label "Совет муниципальных депутатов" .
+
+
+###  http://www.w3id.org/cityont-core#MunicipalGov
+city-data-conceptual:MunicipalGov rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:GovernmentBody ;
+                                  rdfs:label "Муниципальный орга власти" .
+
+
+###  http://www.w3id.org/cityont-core#Municipality
+city-data-conceptual:Municipality rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:AdministrativeUnit ;
+                                  rdfs:label "Муниципалитет" .
+
+
+###  http://www.w3id.org/cityont-core#Museum
+city-data-conceptual:Museum rdf:type owl:Class ;
+                            rdfs:subClassOf city-data-conceptual:CulturalObject ;
+                            rdfs:label "Музей" .
+
+
+###  http://www.w3id.org/cityont-core#NatureObject
+city-data-conceptual:NatureObject rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:FunctionalObject ;
+                                  rdfs:comment "Объект живой природы (например, зелёное насаждение)" ;
+                                  rdfs:label "Природный объект" .
+
+
+###  http://www.w3id.org/cityont-core#NetObject
+city-data-conceptual:NetObject rdf:type owl:Class ;
+                               rdfs:subClassOf city-data-conceptual:PhysicalObject ;
+                               rdfs:comment "Объект, обозначаемый на карте линией или сетью линий (например, дорога или система водоснабжения)" ;
+                               rdfs:label "Сетевой объект" .
+
+
+###  http://www.w3id.org/cityont-core#NonProfitAssociation
+city-data-conceptual:NonProfitAssociation rdf:type owl:Class ;
+                                          rdfs:subClassOf city-data-conceptual:NonProfitOrganization ;
+                                          rdfs:label "Некоммерческая ассоциация" .
+
+
+###  http://www.w3id.org/cityont-core#NonProfitFoundation
+city-data-conceptual:NonProfitFoundation rdf:type owl:Class ;
+                                         rdfs:subClassOf city-data-conceptual:NonProfitOrganization ;
+                                         rdfs:label "Некоммерческий фонд" .
+
+
+###  http://www.w3id.org/cityont-core#NonProfitOrganization
+city-data-conceptual:NonProfitOrganization rdf:type owl:Class ;
+                                           rdfs:subClassOf city-data-conceptual:Organization ;
+                                           rdfs:label "Некоммерческая организация" .
+
+
+###  http://www.w3id.org/cityont-core#NonProfitPartnership
+city-data-conceptual:NonProfitPartnership rdf:type owl:Class ;
+                                          rdfs:subClassOf city-data-conceptual:NonProfitOrganization ;
+                                          rdfs:label "Некоммерческое партнерство" .
+
+
+###  http://www.w3id.org/cityont-core#Organization
+city-data-conceptual:Organization rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:Agent ;
+                                  rdfs:comment "The Organization class represents a kind of Agent corresponding to social instititutions such as companies, societies etc." ;
+                                  rdfs:isDefinedBy "http://xmlns.com/foaf/spec/#term_Organization" ;
+                                  rdfs:label "Organization"@en ,
+                                             "Организация"@ru .
+
+
+###  http://www.w3id.org/cityont-core#Organization_AO
+city-data-conceptual:Organization_AO rdf:type owl:Class ;
+                                     rdfs:subClassOf city-data-conceptual:CommercialOrganization ;
+                                     rdfs:label "АО" .
+
+
+###  http://www.w3id.org/cityont-core#Organization_IP
+city-data-conceptual:Organization_IP rdf:type owl:Class ;
+                                     rdfs:subClassOf city-data-conceptual:CommercialOrganization ;
+                                     rdfs:label "ИП" .
+
+
+###  http://www.w3id.org/cityont-core#Organization_OOO
+city-data-conceptual:Organization_OOO rdf:type owl:Class ;
+                                      rdfs:subClassOf city-data-conceptual:CommercialOrganization ;
+                                      rdfs:label "ООО" .
+
+
+###  http://www.w3id.org/cityont-core#Organization_ZAO
+city-data-conceptual:Organization_ZAO rdf:type owl:Class ;
+                                      rdfs:subClassOf city-data-conceptual:CommercialOrganization ;
+                                      rdfs:label "ЗАО" .
+
+
+###  http://www.w3id.org/cityont-core#OtherFunctionalCityObject
+city-data-conceptual:OtherFunctionalCityObject rdf:type owl:Class ;
+                                               rdfs:subClassOf city-data-conceptual:FunctionalObject ;
+                                               rdfs:label "Иной функциональный объект" .
+
+
+###  http://www.w3id.org/cityont-core#OtherPopulationGroups
+city-data-conceptual:OtherPopulationGroups rdf:type owl:Class ;
+                                           rdfs:subClassOf city-data-conceptual:SocialGroup ;
+                                           rdfs:label "Дополнительные группы горожан" .
+
+
+###  http://www.w3id.org/cityont-core#OutletCenter
+city-data-conceptual:OutletCenter rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:RetailHub ;
+                                  rdfs:label "Ауилет-центр" .
+
+
+###  http://www.w3id.org/cityont-core#OutpatientClinic
+city-data-conceptual:OutpatientClinic rdf:type owl:Class ;
+                                      rdfs:subClassOf city-data-conceptual:HelthFacility ;
+                                      rdfs:label "Поликлиника" .
+
+
+###  http://www.w3id.org/cityont-core#PT_Route
+city-data-conceptual:PT_Route rdf:type owl:Class ;
+                              rdfs:subClassOf city-data-conceptual:GTFS ;
+                              rdfs:label "Маршрут ОТ" .
+
+
+###  http://www.w3id.org/cityont-core#PT_Stop
+city-data-conceptual:PT_Stop rdf:type owl:Class ;
+                             rdfs:subClassOf city-data-conceptual:GTFS ;
+                             rdfs:label "Остановка ОТ" .
+
+
+###  http://www.w3id.org/cityont-core#PT_Trip
+city-data-conceptual:PT_Trip rdf:type owl:Class ;
+                             rdfs:subClassOf city-data-conceptual:GTFS ;
+                             rdfs:label "Наряд ОТ" .
+
+
+###  http://www.w3id.org/cityont-core#Park
+city-data-conceptual:Park rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:GreenObject ;
+                          rdfs:label "Парк" .
+
+
+###  http://www.w3id.org/cityont-core#Pedestrian
+city-data-conceptual:Pedestrian rdf:type owl:Class ;
+                                rdfs:subClassOf city-data-conceptual:PublicTransportationObject ;
+                                rdfs:label "Пешеходная зона" .
+
+
+###  http://www.w3id.org/cityont-core#Person
+city-data-conceptual:Person rdf:type owl:Class ;
+                            rdfs:subClassOf city-data-conceptual:Agent ;
+                            rdfs:comment "The Person class represents people." ;
+                            rdfs:isDefinedBy "http://xmlns.com/foaf/spec/#term_Person" ;
+                            rdfs:label "Person"@en ,
+                                       "Человек"@ru .
+
+
+###  http://www.w3id.org/cityont-core#Pharmacy
+city-data-conceptual:Pharmacy rdf:type owl:Class ;
+                              rdfs:subClassOf city-data-conceptual:MedicalObject ;
+                              rdfs:label "Аптека" .
+
+
+###  http://www.w3id.org/cityont-core#PhysicalObject
+city-data-conceptual:PhysicalObject rdf:type owl:Class ;
+                                    rdfs:comment "Класс городских сущностей. Сюда помещаются конкретные физические объекты (например, здание), которые связываются с функциями (например, университет), координатами и управляющими ими организациями (например, Университет ИТМО)." ;
+                                    rdfs:label "Физический объект" .
+
+
+###  http://www.w3id.org/cityont-core#Playground
+city-data-conceptual:Playground rdf:type owl:Class ;
+                                rdfs:subClassOf city-data-conceptual:PublicObject ;
+                                rdfs:label "Детская площадка" .
+
+
+###  http://www.w3id.org/cityont-core#PointObject
+city-data-conceptual:PointObject rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:PhysicalObject ;
+                                 rdfs:label "Точечный объект" .
+
+
+###  http://www.w3id.org/cityont-core#Preschool
+city-data-conceptual:Preschool rdf:type owl:Class ;
+                               rdfs:subClassOf city-data-conceptual:EducationalObject ;
+                               rdfs:label "Детский сад" .
+
+
+###  http://www.w3id.org/cityont-core#President
+city-data-conceptual:President rdf:type owl:Class ;
+                               rdfs:subClassOf city-data-conceptual:FederalGov ;
+                               rdfs:label "Президент" .
+
+
+###  http://www.w3id.org/cityont-core#PresidentAdministration
+city-data-conceptual:PresidentAdministration rdf:type owl:Class ;
+                                             rdfs:subClassOf city-data-conceptual:President .
+
+
+###  http://www.w3id.org/cityont-core#PresidentHumanRightsSovet
+city-data-conceptual:PresidentHumanRightsSovet rdf:type owl:Class ;
+                                               rdfs:subClassOf city-data-conceptual:President .
+
+
+###  http://www.w3id.org/cityont-core#ProsecutorOffice
+city-data-conceptual:ProsecutorOffice rdf:type owl:Class ;
+                                      rdfs:subClassOf city-data-conceptual:GovernmentAuthority ;
+                                      rdfs:label "Прокуратура" .
+
+
+###  http://www.w3id.org/cityont-core#PublicHeatingSystemObject
+city-data-conceptual:PublicHeatingSystemObject rdf:type owl:Class ;
+                                               rdfs:subClassOf city-data-conceptual:PublicSystemObject ;
+                                               rdfs:label "Отопительная система" .
+
+
+###  http://www.w3id.org/cityont-core#PublicNotRegistered
+city-data-conceptual:PublicNotRegistered rdf:type owl:Class ;
+                                         rdfs:subClassOf city-data-conceptual:NonProfitOrganization .
+
+
+###  http://www.w3id.org/cityont-core#PublicObject
+city-data-conceptual:PublicObject rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:SocialObject ;
+                                  rdfs:label "Общественный объект" .
+
+
+###  http://www.w3id.org/cityont-core#PublicOrganization
+city-data-conceptual:PublicOrganization rdf:type owl:Class ;
+                                        rdfs:subClassOf city-data-conceptual:NonProfitOrganization ;
+                                        rdfs:label "Общественная организация" .
+
+
+###  http://www.w3id.org/cityont-core#PublicPowerSystemObject
+city-data-conceptual:PublicPowerSystemObject rdf:type owl:Class ;
+                                             rdfs:subClassOf city-data-conceptual:PublicSystemObject ;
+                                             rdfs:label "Электросетевая система" .
+
+
+###  http://www.w3id.org/cityont-core#PublicSewerageSystemObject
+city-data-conceptual:PublicSewerageSystemObject rdf:type owl:Class ;
+                                                rdfs:subClassOf city-data-conceptual:PublicSystemObject ;
+                                                rdfs:label "Канализационная система" .
+
+
+###  http://www.w3id.org/cityont-core#PublicSystemObject
+city-data-conceptual:PublicSystemObject rdf:type owl:Class ;
+                                        rdfs:subClassOf city-data-conceptual:NetObject ;
+                                        rdfs:label "Коммунальная система" .
+
+
+###  http://www.w3id.org/cityont-core#PublicTransportationObject
+city-data-conceptual:PublicTransportationObject rdf:type owl:Class ;
+                                                rdfs:subClassOf city-data-conceptual:FunctionalObject ;
+                                                rdfs:label "Элемент транспортной инфраструктуры" .
+
+
+###  http://www.w3id.org/cityont-core#PublicVehicle
+city-data-conceptual:PublicVehicle rdf:type owl:Class ;
+                                   rdfs:subClassOf city-data-conceptual:PublicTransportationObject ;
+                                   rdfs:label "Пассажирское транспортное средство" .
+
+
+###  http://www.w3id.org/cityont-core#PublicWaterSystemObject
+city-data-conceptual:PublicWaterSystemObject rdf:type owl:Class ;
+                                             rdfs:subClassOf city-data-conceptual:PublicSystemObject ;
+                                             rdfs:label "Система водоснабжения" .
+
+
+###  http://www.w3id.org/cityont-core#Reference
+city-data-conceptual:Reference rdf:type owl:Class ;
+                               rdfs:subClassOf city-data-conceptual:Service ;
+                               rdfs:label "Справочник" .
+
+
+###  http://www.w3id.org/cityont-core#Region
+city-data-conceptual:Region rdf:type owl:Class ;
+                            rdfs:subClassOf city-data-conceptual:AdministrativeUnit ;
+                            rdfs:label "Регион" .
+
+
+###  http://www.w3id.org/cityont-core#RegionalAdministartion
+city-data-conceptual:RegionalAdministartion rdf:type owl:Class ;
+                                            rdfs:subClassOf city-data-conceptual:RegionalGov ;
+                                            rdfs:label "Администрация субъекта федерации" .
+
+
+###  http://www.w3id.org/cityont-core#RegionalGov
+city-data-conceptual:RegionalGov rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:GovernmentBody ;
+                                 rdfs:label "Региональный орган власти" .
+
+
+###  http://www.w3id.org/cityont-core#RegionalMinistry
+city-data-conceptual:RegionalMinistry rdf:type owl:Class ;
+                                      rdfs:subClassOf city-data-conceptual:RegionalGov ;
+                                      rdfs:label "Региональный исполнительный орган власти" .
+
+
+###  http://www.w3id.org/cityont-core#RegionalParliament
+city-data-conceptual:RegionalParliament rdf:type owl:Class ;
+                                        rdfs:subClassOf city-data-conceptual:RegionalGov ;
+                                        rdfs:label "Парламент субъекта федерации" .
+
+
+###  http://www.w3id.org/cityont-core#ReligiousObject
+city-data-conceptual:ReligiousObject rdf:type owl:Class ;
+                                     rdfs:subClassOf city-data-conceptual:SocialObject ;
+                                     rdfs:label "Религиозный объект" .
+
+
+###  http://www.w3id.org/cityont-core#Restaurant
+city-data-conceptual:Restaurant rdf:type owl:Class ;
+                                rdfs:subClassOf city-data-conceptual:Eatery ;
+                                rdfs:label "Ресторан" .
+
+
+###  http://www.w3id.org/cityont-core#RetailHub
+city-data-conceptual:RetailHub rdf:type owl:Class ;
+                               rdfs:subClassOf city-data-conceptual:CommercialObject ;
+                               rdfs:label "Торговый центр" .
+
+
+###  http://www.w3id.org/cityont-core#RetailStore
+city-data-conceptual:RetailStore rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:CommercialObject ;
+                                 rdfs:label "Магазин" .
+
+
+###  http://www.w3id.org/cityont-core#Road
+city-data-conceptual:Road rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:RoadNetworkObject ;
+                          rdfs:label "Дорога" .
+
+
+###  http://www.w3id.org/cityont-core#RoadNetworkObject
+city-data-conceptual:RoadNetworkObject rdf:type owl:Class ;
+                                       rdfs:subClassOf city-data-conceptual:NetObject ;
+                                       rdfs:label "Дорожная сеть" .
+
+
+###  http://www.w3id.org/cityont-core#School
+city-data-conceptual:School rdf:type owl:Class ;
+                            rdfs:subClassOf city-data-conceptual:EducationalObject ;
+                            rdfs:label "Школа" .
+
+
+###  http://www.w3id.org/cityont-core#Service
+city-data-conceptual:Service rdf:type owl:Class ;
+                             rdfs:label "Служебная сущность" .
+
+
+###  http://www.w3id.org/cityont-core#ShoppingEntertainmentCentre
+city-data-conceptual:ShoppingEntertainmentCentre rdf:type owl:Class ;
+                                                 rdfs:subClassOf city-data-conceptual:RetailHub ;
+                                                 rdfs:label "Торгово-развлекательный центр" .
+
+
+###  http://www.w3id.org/cityont-core#ShoppingEntertainmentMall
+city-data-conceptual:ShoppingEntertainmentMall rdf:type owl:Class ;
+                                               rdfs:subClassOf city-data-conceptual:RetailHub ;
+                                               rdfs:label "Торгово-развлекательный комплекс" .
+
+
+###  http://www.w3id.org/cityont-core#SmallArchitecrure
+city-data-conceptual:SmallArchitecrure rdf:type owl:Class ;
+                                       rdfs:subClassOf city-data-conceptual:AchitectureElement ;
+                                       rdfs:label "МАФ" .
+
+
+###  http://www.w3id.org/cityont-core#SnowCleaningMachine
+city-data-conceptual:SnowCleaningMachine rdf:type owl:Class ;
+                                         rdfs:subClassOf city-data-conceptual:TechObjects ;
+                                         rdfs:label "Снегоуборочная техника" .
+
+
+###  http://www.w3id.org/cityont-core#SocialGroup
+city-data-conceptual:SocialGroup rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:Group ;
+                                 rdfs:comment "Описание социальных групп населения в базе данных в соответствии с документом \"Дем соц группы\" по ссылке" ;
+                                 rdfs:isDefinedBy "https://docs.google.com/document/d/16ZIA3hXikwpipxL7rpNQGuY90LG7AHbMLhu54QeZuSw/edit" ;
+                                 rdfs:label "Социальная группа населения" .
+
+
+###  http://www.w3id.org/cityont-core#SocialObject
+city-data-conceptual:SocialObject rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:FunctionalObject ;
+                                  rdfs:comment "Объект, несущий функцию обеспечения населения города любыми сервисами (например, школа или музей)" ;
+                                  rdfs:label "Социальный объект" .
+
+
+###  http://www.w3id.org/cityont-core#Space
+city-data-conceptual:Space rdf:type owl:Class ;
+                           rdfs:subClassOf city-data-conceptual:AreaObject ;
+                           rdfs:comment "Площадной объект, представляющий собой участок земли (без учёта построек на нём)" ;
+                           rdfs:label "Пространство" .
+
+
+###  http://www.w3id.org/cityont-core#SportsClass
+city-data-conceptual:SportsClass rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:EducationalObject ;
+                                 rdfs:label "Спортивная секция" .
+
+
+###  http://www.w3id.org/cityont-core#SportsObject
+city-data-conceptual:SportsObject rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:SocialObject ;
+                                  rdfs:label "Спортивный объект" .
+
+
+###  http://www.w3id.org/cityont-core#StateOrganization
+city-data-conceptual:StateOrganization rdf:type owl:Class ;
+                                       rdfs:subClassOf city-data-conceptual:GovernmentAuthority ;
+                                       rdfs:label "Бюджетное учреждение" .
+
+
+###  http://www.w3id.org/cityont-core#Supermarket
+city-data-conceptual:Supermarket rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:MultifunctionalStore ;
+                                 rdfs:label "Супермаркет" .
+
+
+###  http://www.w3id.org/cityont-core#TallMultyApt
+city-data-conceptual:TallMultyApt rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:LivingObject ;
+                                  rdfs:label "Высотное жилое строение" .
+
+
+###  http://www.w3id.org/cityont-core#TechObjects
+city-data-conceptual:TechObjects rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:FunctionalObject ;
+                                 rdfs:label "Техника" .
+
+
+###  http://www.w3id.org/cityont-core#TemporalBuilding
+city-data-conceptual:TemporalBuilding rdf:type owl:Class ;
+                                      rdfs:subClassOf city-data-conceptual:Building ;
+                                      rdfs:label "Временное сооружение" .
+
+
+###  http://www.w3id.org/cityont-core#Territory
+city-data-conceptual:Territory rdf:type owl:Class ;
+                               rdfs:subClassOf city-data-conceptual:Space ;
+                               rdfs:label "Иная территория" .
+
+
+###  http://www.w3id.org/cityont-core#Theatre
+city-data-conceptual:Theatre rdf:type owl:Class ;
+                             rdfs:subClassOf city-data-conceptual:CulturalObject ;
+                             rdfs:label "Театр" .
+
+
+###  http://www.w3id.org/cityont-core#TouristPopulation
+city-data-conceptual:TouristPopulation rdf:type owl:Class ;
+                                       rdfs:subClassOf city-data-conceptual:SocialGroup ;
+                                       rdfs:label "Туристы" .
+
+
+###  http://www.w3id.org/cityont-core#Town
+city-data-conceptual:Town rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:AdministrativeUnit ;
+                          rdfs:label "Поселок городского типа" .
+
+
+###  http://www.w3id.org/cityont-core#Townhouse
+city-data-conceptual:Townhouse rdf:type owl:Class ;
+                               rdfs:subClassOf city-data-conceptual:LivingObject ;
+                               rdfs:label "Таунхаус" .
+
+
+###  http://www.w3id.org/cityont-core#Tractor
+city-data-conceptual:Tractor rdf:type owl:Class ;
+                             rdfs:subClassOf city-data-conceptual:MovableObject ;
+                             rdfs:label "Трактор" .
+
+
+###  http://www.w3id.org/cityont-core#TrafficLight
+city-data-conceptual:TrafficLight rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:PublicTransportationObject ;
+                                  rdfs:label "Светофор" .
+
+
+###  http://www.w3id.org/cityont-core#Tram
+city-data-conceptual:Tram rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:MovableObject ;
+                          rdfs:label "Трамвай" .
+
+
+###  http://www.w3id.org/cityont-core#TraumaCenter
+city-data-conceptual:TraumaCenter rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:HelthFacility ;
+                                  rdfs:label "Травмпункт" .
+
+
+###  http://www.w3id.org/cityont-core#Tree
+city-data-conceptual:Tree rdf:type owl:Class ;
+                          rdfs:subClassOf city-data-conceptual:GreenObject ,
+                                          city-data-conceptual:PointObject ;
+                          rdfs:label "Зеленое насаждение" .
+
+
+###  http://www.w3id.org/cityont-core#TrolleyBus
+city-data-conceptual:TrolleyBus rdf:type owl:Class ;
+                                rdfs:subClassOf city-data-conceptual:MovableObject ;
+                                rdfs:label "Троллейбус" .
+
+
+###  http://www.w3id.org/cityont-core#TruckVehicle
+city-data-conceptual:TruckVehicle rdf:type owl:Class ;
+                                  rdfs:subClassOf city-data-conceptual:MovableObject ;
+                                  rdfs:label "Грузовой автомобиль" .
+
+
+###  http://www.w3id.org/cityont-core#UnderWorkingAgePopulation
+city-data-conceptual:UnderWorkingAgePopulation rdf:type owl:Class ;
+                                               rdfs:subClassOf city-data-conceptual:SocialGroup ;
+                                               rdfs:label "Население моложе трудоспособного возраста" .
+
+
+###  http://www.w3id.org/cityont-core#University
+city-data-conceptual:University rdf:type owl:Class ;
+                                rdfs:subClassOf city-data-conceptual:EducationalObject ;
+                                rdfs:label "Университет" .
+
+
+###  http://www.w3id.org/cityont-core#UpwardWorkingAgePopulation
+city-data-conceptual:UpwardWorkingAgePopulation rdf:type owl:Class ;
+                                                rdfs:subClassOf city-data-conceptual:SocialGroup ;
+                                                rdfs:label "Население старше трудоспособного возраста" .
+
+
+###  http://www.w3id.org/cityont-core#VeterinaryHospital
+city-data-conceptual:VeterinaryHospital rdf:type owl:Class ;
+                                        rdfs:subClassOf city-data-conceptual:MedicalObject ;
+                                        rdfs:label "Ветеринарная клиника" .
+
+
+###  http://www.w3id.org/cityont-core#Village
+city-data-conceptual:Village rdf:type owl:Class ;
+                             rdfs:subClassOf city-data-conceptual:AdministrativeUnit ;
+                             rdfs:label "Поселок" .
+
+
+###  http://www.w3id.org/cityont-core#WaterObject
+city-data-conceptual:WaterObject rdf:type owl:Class ;
+                                 rdfs:subClassOf city-data-conceptual:NatureObject ;
+                                 rdfs:label "Водный объект" .
+
+
+###  http://www.w3id.org/cityont-core#WorkType
+city-data-conceptual:WorkType rdf:type owl:Class ;
+                              rdfs:subClassOf city-data-conceptual:Reference ;
+                              rdfs:comment "Перечисление видов работ при капитальном ремонте" ;
+                              rdfs:label "Вид работ" .
+
+
+###  http://www.w3id.org/cityont-core#WorkingAgePopulation
+city-data-conceptual:WorkingAgePopulation rdf:type owl:Class ;
+                                          rdfs:subClassOf city-data-conceptual:SocialGroup ;
+                                          rdfs:label "Население трудоспособного возраста" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.w3id.org/cityont-core#Bicyclers
+city-data-conceptual:Bicyclers rdf:type owl:NamedIndividual ,
+                                        city-data-conceptual:OtherPopulationGroups ;
+                               rdfs:label "Велосипедисты" .
+
+
+###  http://www.w3id.org/cityont-core#BusinessTourist
+city-data-conceptual:BusinessTourist rdf:type owl:NamedIndividual ,
+                                              city-data-conceptual:TouristPopulation ;
+                                     rdfs:label "Приезжие по рабочим вопросам" .
+
+
+###  http://www.w3id.org/cityont-core#CarOwner
+city-data-conceptual:CarOwner rdf:type owl:NamedIndividual ,
+                                       city-data-conceptual:OtherPopulationGroups ;
+                              rdfs:label "Автовладельцы" .
+
+
+###  http://www.w3id.org/cityont-core#CitizensWithEarlyChildhood
+city-data-conceptual:CitizensWithEarlyChildhood rdf:type owl:NamedIndividual ,
+                                                         city-data-conceptual:WorkingAgePopulation ;
+                                                rdfs:label "Горожане с детьми до-детсадовского возраста (от 1 до 3 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#CitizensWithInfant
+city-data-conceptual:CitizensWithInfant rdf:type owl:NamedIndividual ,
+                                                 city-data-conceptual:WorkingAgePopulation ;
+                                        rdfs:label "Горожане с младенцами (от 0 до 1 года)" .
+
+
+###  http://www.w3id.org/cityont-core#CitizensWithPreschooler
+city-data-conceptual:CitizensWithPreschooler rdf:type owl:NamedIndividual ,
+                                                      city-data-conceptual:WorkingAgePopulation ;
+                                             rdfs:label "Горожане с детьми дошкольного возраста (от 3 до 7 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#CitizensWithPrimarySchoolAge
+city-data-conceptual:CitizensWithPrimarySchoolAge rdf:type owl:NamedIndividual ,
+                                                           city-data-conceptual:WorkingAgePopulation ;
+                                                  rdfs:label "Горожане с детьми младшего школьного возраста (от 7 до 11 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#DisabledMovement
+city-data-conceptual:DisabledMovement rdf:type owl:NamedIndividual ,
+                                               city-data-conceptual:DisabledPopulation ;
+                                      rdfs:label "Лица с ограниченными возможностями передвижения" .
+
+
+###  http://www.w3id.org/cityont-core#DisabledSight
+city-data-conceptual:DisabledSight rdf:type owl:NamedIndividual ,
+                                            city-data-conceptual:DisabledPopulation ;
+                                   rdfs:label "Лица с инвалидностью по зрению" .
+
+
+###  http://www.w3id.org/cityont-core#EarlyChildhood
+city-data-conceptual:EarlyChildhood rdf:type owl:NamedIndividual ,
+                                             city-data-conceptual:UnderWorkingAgePopulation ;
+                                    rdfs:label "Дети до-детсадовского возраста (раннее детство от 1 до 3 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#ElderlyWorkingCitizens
+city-data-conceptual:ElderlyWorkingCitizens rdf:type owl:NamedIndividual ,
+                                                     city-data-conceptual:WorkingAgePopulation ;
+                                            rdfs:label "Работающие горожане предпенсионного и пенсионного возраста (61-70 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#EventTourist
+city-data-conceptual:EventTourist rdf:type owl:NamedIndividual ,
+                                           city-data-conceptual:TouristPopulation ;
+                                  rdfs:label "Приезжие к мероприятиям" .
+
+
+###  http://www.w3id.org/cityont-core#HealthyLifestyleCitizens
+city-data-conceptual:HealthyLifestyleCitizens rdf:type owl:NamedIndividual ,
+                                                       city-data-conceptual:OtherPopulationGroups ;
+                                              rdfs:label "Горожане, ведущие здоровый образ жизни" .
+
+
+###  http://www.w3id.org/cityont-core#Infant
+city-data-conceptual:Infant rdf:type owl:NamedIndividual ,
+                                     city-data-conceptual:UnderWorkingAgePopulation ;
+                            rdfs:label "Младенцы (от 0 до 1 года)" .
+
+
+###  http://www.w3id.org/cityont-core#MiddleAgeWorkingCitizens
+city-data-conceptual:MiddleAgeWorkingCitizens rdf:type owl:NamedIndividual ,
+                                                       city-data-conceptual:WorkingAgePopulation ;
+                                              rdfs:label "Работающие горожане среднего возраста (от 31 до 40 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#MigrantWorker
+city-data-conceptual:MigrantWorker rdf:type owl:NamedIndividual ,
+                                            city-data-conceptual:OtherPopulationGroups ;
+                                   rdfs:label "Трудовые мигранты" .
+
+
+###  http://www.w3id.org/cityont-core#NoHealthyLifestyleCitizens
+city-data-conceptual:NoHealthyLifestyleCitizens rdf:type owl:NamedIndividual ,
+                                                         city-data-conceptual:OtherPopulationGroups ;
+                                                rdfs:label "Горожане, не ведущие здоровый образ жизни" .
+
+
+###  http://www.w3id.org/cityont-core#OlderRetiree
+city-data-conceptual:OlderRetiree rdf:type owl:NamedIndividual ,
+                                           city-data-conceptual:UpwardWorkingAgePopulation ;
+                                  rdfs:label "Пенсионеры старших возрастов (старше 75 лет" .
+
+
+###  http://www.w3id.org/cityont-core#PetOwner
+city-data-conceptual:PetOwner rdf:type owl:NamedIndividual ,
+                                       city-data-conceptual:OtherPopulationGroups ;
+                              rdfs:label "Владельцы домашних животных" .
+
+
+###  http://www.w3id.org/cityont-core#Pregnant
+city-data-conceptual:Pregnant rdf:type owl:NamedIndividual ,
+                                       city-data-conceptual:WorkingAgePopulation ;
+                              rdfs:label "Беременные женщины" .
+
+
+###  http://www.w3id.org/cityont-core#Preschooler
+city-data-conceptual:Preschooler rdf:type owl:NamedIndividual ,
+                                          city-data-conceptual:UnderWorkingAgePopulation ;
+                                 rdfs:label "Дети дошкольного возраста (от 3 до 7 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#PrimarySchoolAge
+city-data-conceptual:PrimarySchoolAge rdf:type owl:NamedIndividual ,
+                                               city-data-conceptual:UnderWorkingAgePopulation ;
+                                      rdfs:label "Дети младшего школьного возраста (от 7 до 11 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#PublicTransportUser
+city-data-conceptual:PublicTransportUser rdf:type owl:NamedIndividual ,
+                                                  city-data-conceptual:OtherPopulationGroups ;
+                                         rdfs:label "Пользователи общественного транспорта" .
+
+
+###  http://www.w3id.org/cityont-core#Religious
+city-data-conceptual:Religious rdf:type owl:NamedIndividual ,
+                                        city-data-conceptual:OtherPopulationGroups ;
+                               rdfs:label "Верующие" .
+
+
+###  http://www.w3id.org/cityont-core#SelfEmployedCitizens
+city-data-conceptual:SelfEmployedCitizens rdf:type owl:NamedIndividual ,
+                                                   city-data-conceptual:WorkingAgePopulation ;
+                                          rdfs:label "Самозанятые горожане" .
+
+
+###  http://www.w3id.org/cityont-core#SeniorWorkingCitizens
+city-data-conceptual:SeniorWorkingCitizens rdf:type owl:NamedIndividual ,
+                                                    city-data-conceptual:WorkingAgePopulation ;
+                                           rdfs:label "Работающие горожане старшего возраста (от 41 до 60 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#Student
+city-data-conceptual:Student rdf:type owl:NamedIndividual ,
+                                      city-data-conceptual:WorkingAgePopulation ;
+                             rdfs:label "Студенты и учащиеся" .
+
+
+###  http://www.w3id.org/cityont-core#Teenager
+city-data-conceptual:Teenager rdf:type owl:NamedIndividual ,
+                                       city-data-conceptual:UnderWorkingAgePopulation ;
+                              rdfs:label "Подростки старшего возраста (от 15 до 18 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#TemporarilyStayingCitizens
+city-data-conceptual:TemporarilyStayingCitizens rdf:type owl:NamedIndividual ,
+                                                         city-data-conceptual:WorkingAgePopulation ;
+                                                rdfs:label "Горожане, временно пребывающие в городе" .
+
+
+###  http://www.w3id.org/cityont-core#TouristInGroup
+city-data-conceptual:TouristInGroup rdf:type owl:NamedIndividual ,
+                                             city-data-conceptual:TouristPopulation ;
+                                    rdfs:label "Туристы в составе организованных групп" .
+
+
+###  http://www.w3id.org/cityont-core#Tween
+city-data-conceptual:Tween rdf:type owl:NamedIndividual ,
+                                    city-data-conceptual:UnderWorkingAgePopulation ;
+                           rdfs:label "Подростки младшего возраста (от 12 до 15 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#UncoordinatedTourist
+city-data-conceptual:UncoordinatedTourist rdf:type owl:NamedIndividual ,
+                                                   city-data-conceptual:TouristPopulation ;
+                                          rdfs:label "Неорганизованные туристы" .
+
+
+###  http://www.w3id.org/cityont-core#WasteSortingCitizens
+city-data-conceptual:WasteSortingCitizens rdf:type owl:NamedIndividual ,
+                                                   city-data-conceptual:OtherPopulationGroups ;
+                                          rdfs:label "Горожане, ведущие раздельный сбор мусора" .
+
+
+###  http://www.w3id.org/cityont-core#YoungRetiree
+city-data-conceptual:YoungRetiree rdf:type owl:NamedIndividual ,
+                                           city-data-conceptual:UpwardWorkingAgePopulation ;
+                                  rdfs:label "Молодые пенсионеры (65 - 75 лет)" .
+
+
+###  http://www.w3id.org/cityont-core#YoungWorkingCitizens
+city-data-conceptual:YoungWorkingCitizens rdf:type owl:NamedIndividual ,
+                                                   city-data-conceptual:WorkingAgePopulation ;
+                                          rdfs:label "Молодые работающие горожане (до 30 лет)" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
